@@ -1,8 +1,15 @@
 from flask import Flask
 from flask_migrate import Migrate
 from concurrent.futures import ThreadPoolExecutor
-from bot.db import db
+from bot.db.connect import db
 import time
+from bot.settings.config import (
+    DATABASE_USER,
+    DATABASE_PASSWORD,
+    DATABASE_HOST,
+    DATABASE_PORT,
+    DATABASE_NAME,
+)
 
 
 app = Flask(__name__)
@@ -35,8 +42,8 @@ if __name__ == '__main__':
 
     try:
         while True:
+            print('[run]')
             time.sleep(1)
     except KeyboardInterrupt:
         print("[STOP] Остановка ботов...")
-        # instagram_bot.stop()
         time.sleep(2)
