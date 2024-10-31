@@ -1,15 +1,29 @@
-# from bot.models import Notification, ChatHistory
-from bot.db import db
+from datetime import datetime
+from bot.db.models import Notification, ChatHistory
+from bot.db.connect import db
 
 
 class WhatsAppBotUtils:
     @staticmethod
-    async def save_notification(receipt_id, phone_number, message_text):
+    async def save_notification(
+        receipt_id, 
+        phone_number, 
+        message_type, 
+        send_by_api, 
+        message_text, 
+        received_at, 
+        message_id,
+        ):
+        if isinstance(received_at, int):
+            received_at = datetime.fromtimestamp(received_at)
         notification = Notification(
             receipt_id=receipt_id,
             phone_number=phone_number,
             message_text=message_text,
-            message_type='text'
+            message_type=message_type,
+            message_id=message_id,
+            received_at=received_at,
+            send_by_api=send_by_api
         )
         db.session.add(notification)
         db.session.commit()
@@ -31,12 +45,3 @@ class WhatsAppBotUtils:
         except Exception as e:
             print(f"Ошибка при удалении контекста: {e}")
             db.session.rollback()
-
-    @staticmethod
-    async def send_to_manager(green_api, response_text):
-        manager_phone_numbers = ["77759419359", "77072508661"]
-        for number in manager_phone_numbers:
-            try:
-                await green_api.send_message(number, response_text)
-            except Exception as e:
-                print(f"Ошибка при отправке сообщения менеджеру {number}: {e}")

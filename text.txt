@@ -1,0 +1,345 @@
+
+{
+	"receiptId": 34,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77476758154@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730187796,
+		"idMessage": "5A4ED664F8F819DEC9394A24EF692A2D",
+		"status": "sent",
+		"sendByApi": false
+	}
+}
+
+{
+	"receiptId": 37,
+	"body": {
+		"typeWebhook": "incomingMessageReceived",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730187808,
+		"idMessage": "4EF9BA631CB53E3CBF33E7D60FABB282",
+		"senderData": {
+			"chatId": "77476758154@c.us",
+			"chatName": "Марк",
+			"sender": "77476758154@c.us",
+			"senderName": "Марк",
+			"senderContactName": "Марк"
+		},
+		"messageData": {
+			"typeMessage": "textMessage",
+			"textMessageData": {
+				"textMessage": "3"
+			}
+		}
+	}
+}
+
+{
+	"receiptId": 40,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77476758154@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730187853,
+		"idMessage": "ADB016677E554CAA229BFA4929A85406",
+		"status": "delivered",
+		"sendByApi": false
+	}
+}
+
+{
+	"receiptId": 42,
+	"body": {
+		"typeWebhook": "incomingMessageReceived",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730187877,
+		"idMessage": "3F9D2372D0D8C3C399D0",
+		"senderData": {
+			"chatId": "77476758154@c.us",
+			"chatName": "Марк",
+			"sender": "77476758154@c.us",
+			"senderName": "Марк",
+			"senderContactName": "Марк"
+		},
+		"messageData": {
+			"typeMessage": "extendedTextMessage",
+			"extendedTextMessageData": {
+				"text": "6",
+				"description": "",
+				"title": "",
+				"previewType": "None",
+				"jpegThumbnail": "",
+				"forwardingScore": 0,
+				"isForwarded": false
+			}
+		}
+	}
+}
+
+{
+	"receiptId": 43,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77476758154@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730187884,
+		"idMessage": "8D97D998B1F7A9918E82EEA4697AC6EF",
+		"status": "sent",
+		"sendByApi": false
+	}
+}
+{
+	"receiptId": 44,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77476758154@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730187884,
+		"idMessage": "8D97D998B1F7A9918E82EEA4697AC6EF",
+		"status": "delivered",
+		"sendByApi": false
+	}
+}
+
+
+
+
+
+
+
+
+
+{
+	"receiptId": 1,
+	"body": {
+		"typeWebhook": "incomingMessageReceived",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730308046,
+		"idMessage": "3EB03030504DB9D330C963",
+		"senderData": {
+			"chatId": "77759419359@c.us",
+			"chatName": "Rindustries",
+			"sender": "77759419359@c.us",
+			"senderName": "Rindustries",
+			"senderContactName": "Абройхан (WorkBot)"
+		},
+		"messageData": {
+			"typeMessage": "extendedTextMessage",
+			"extendedTextMessageData": {
+				"text": "import requests\nimport urllib.parse\nimport json\n\nmanager_phone = '77759419359'\nservice_type_select = 'Беззалоговый кредит'\n\n\ndef shorten_url(long_url):\n    api_url = \"https://twi.kz/api/v1/shorten\"\n    headers = {\n        'Accept': 'application/json',\n        'Content-Type': 'application/json'\n    }\n    data = {\n        \"url\": long_url\n    }\n\n    response = requests.post(api_url, headers=headers, data=json.dumps(data))\n\n    if response.status_code == 201:  # 201 Created\n        result = response.json()\n        return result['shorten']\n    else:\n        print(f\"Ошибка: {response.status_code}, {response.text}\")\n        return None\n\n\n # Базовый текст\nbase_text = f\"Здравствуйте! Я хочу получить бесплатную консультацию по услуге - {service_type_select}\"\n# Кодирование текста в формат URL\nencoded_text = urllib.parse.quote(base_text)\n# Формирование ссылки\nmanager_url_for_client = f\"https://api.whatsapp.com/send?phone={manager_phone}&text={encoded_text}\"\nnew_manager_url_for_client = shorten_url(manager_url_for_client)\nprint(new_manager_url_for_client)",
+				"description": "https://twi.kz/api/v1/shorten",
+				"title": "twi.kz",
+				"previewType": "None",
+				"jpegThumbnail": "",
+				"forwardingScore": 0,
+				"isForwarded": false
+			}
+		}
+	}
+}
+{
+	"receiptId": 2,
+	"body": {
+		"typeWebhook": "incomingMessageReceived",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730308226,
+		"idMessage": "3EB0DEF097167377E9E8B0",
+		"senderData": {
+			"chatId": "77759419359@c.us",
+			"chatName": "Rindustries",
+			"sender": "77759419359@c.us",
+			"senderName": "Rindustries",
+			"senderContactName": "Абройхан (WorkBot)"
+		},
+		"messageData": {
+			"typeMessage": "extendedTextMessage",
+			"extendedTextMessageData": {
+				"text": "https://share.kz/",
+				"description": "https://share.kz/",
+				"title": "share.kz",
+				"previewType": "None",
+				"jpegThumbnail": "",
+				"forwardingScore": 0,
+				"isForwarded": false
+			}
+		}
+	}
+}
+{
+	"receiptId": 3,
+	"body": {
+		"typeWebhook": "incomingMessageReceived",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730308246,
+		"idMessage": "3EB0F0617395E6738D5761",
+		"senderData": {
+			"chatId": "77759419359@c.us",
+			"chatName": "Rindustries",
+			"sender": "77759419359@c.us",
+			"senderName": "Rindustries",
+			"senderContactName": "Абройхан (WorkBot)"
+		},
+		"messageData": {
+			"typeMessage": "extendedTextMessage",
+			"extendedTextMessageData": {
+				"text": "https://api.whatsapp.com/send?phone=77759419359&text=Здравствуйте!%20Я%20хочу%20получить%20бесплатную%20консультацию%20по%20услуге%20-%20Беззалоговый%20кредит",
+				"description": "https://api.whatsapp.com/send?phone=77759419359&text=Здравствуйте!%20Я%20хочу%20получить%20бесплатную%20консультацию%20по%20услуге%20-%20Беззалоговый%20кредит",
+				"title": "api.whatsapp.com",
+				"previewType": "None",
+				"jpegThumbnail": "",
+				"forwardingScore": 0,
+				"isForwarded": false
+			}
+		}
+	}
+}
+{
+	"receiptId": 4,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77072508661@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730311876,
+		"idMessage": "6B25EDB229A59466E2915B05C6756446",
+		"status": "delivered",
+		"sendByApi": false
+	}
+}
+{
+	"receiptId": 5,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77072508661@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730311880,
+		"idMessage": "BAE5E9BAF9C1D5CC",
+		"status": "delivered",
+		"sendByApi": true
+	}
+}
+{
+	"receiptId": 6,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77072508661@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730347454,
+		"idMessage": "BAE5E9BAF9C1D5CC",
+		"status": "read",
+		"sendByApi": true
+	}
+}
+{
+	"receiptId": 7,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77072508661@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730347454,
+		"idMessage": "6B25EDB229A59466E2915B05C6756446",
+		"status": "read",
+		"sendByApi": false
+	}
+}
+{
+	"receiptId": 8,
+	"body": {
+		"typeWebhook": "outgoingMessageStatus",
+		"chatId": "77008992607@c.us",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730347667,
+		"idMessage": "BAE58BDD188AA65C",
+		"status": "delivered",
+		"sendByApi": true
+	}
+}
+{
+	"receiptId": 9,
+	"body": {
+		"typeWebhook": "incomingMessageReceived",
+		"instanceData": {
+			"idInstance": 7103942473,
+			"wid": "77075543658@c.us",
+			"typeInstance": "whatsapp"
+		},
+		"timestamp": 1730347758,
+		"idMessage": "3AA73DD2FD9433A10FF7",
+		"senderData": {
+			"chatId": "77008992607@c.us",
+			"chatName": "Нұрасыл Жапсарбек",
+			"sender": "77008992607@c.us",
+			"senderName": "Нұрасыл Жапсарбек",
+			"senderContactName": ""
+		},
+		"messageData": {
+			"typeMessage": "audioMessage",
+			"fileMessageData": {
+				"downloadUrl": "https://do-media-7103.fra1.digitaloceanspaces.com/7103942473/926ac7ce-772e-4fee-aef4-d306fb7c12fa.oga",
+				"caption": "",
+				"fileName": "926ac7ce-772e-4fee-aef4-d306fb7c12fa.oga",
+				"jpegThumbnail": "",
+				"isAnimated": false,
+				"mimeType": "audio/ogg; codecs=opus",
+				"forwardingScore": 0,
+				"isForwarded": false
+			}
+		}
+	}
+}

@@ -16,3 +16,6 @@ GREEN_API_ID = os.getenv('GREEN_API_ID')
 GREEN_API_TOKEN = os.getenv('GREEN_API_TOKEN')
 
 AI_API_KEY = os.getenv("AI_API_KEY")
+
+MANAGER_PHONE_NUMBER = os.getenv("MANAGER_PHONE_NUMBER")
+

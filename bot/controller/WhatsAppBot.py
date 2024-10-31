@@ -1,136 +1,138 @@
 import asyncio
 import aiohttp
 import os
-from bot.db import db
+from bot.db.connect import db
 from bot.utils.whatsApp_utils import WhatsAppBotUtils
-from bot.models import (
+from bot.db.models import (
     Client,
-    Notification,
-    ChatHistory
+    ChatHistory,
 )
-from bot.utils.speech_to_text import transcribe_audio
-from bot.traveler import interact_with_chatgpt_async
-from bot.controller.prompts import system_prompt, correct_form_prompt
+from bot.stack.traveler import interact_with_chatgpt_async
+from bot.stack.prompts import system_prompt, correct_form_prompt
 from bot.controller.GreenAPI_controll import GreenAPI
-
-from bot.utils.logger import log_info, log_error
+from bot.settings.logger import log_info, log_error
 from concurrent.futures import ThreadPoolExecutor
+from bot.settings.config import MANAGER_PHONE_NUMBER
+from bot.utils.create_link import encode_text_for_url, shorten_url
+from datetime import datetime, timedelta
 
 
-async def save_audio(download_url: str, file_name: str):
-    """Сохранение аудиофайла на диск."""
-    try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(download_url) as response:
-                if response.status == 200:
-                    # Создаем папку для сохранения, если ее нет
-                    os.makedirs('audio_files', exist_ok=True)
-                    file_path = os.path.join('audio_files', file_name)
+RECOMMENDER = False
 
-                    with open(file_path, 'wb') as f:
-                        f.write(await response.read())
-                    print(f'Аудиофайл сохранён: {file_path}')
-                    log_info(f'Аудиофайл сохранён: {file_path}')
-                else:
-                    print(f'Ошибка при загрузке аудиофайла: {response.status}')
-                    log_error(f'Ошибка при загрузке аудиофайла: {response.status}')
-    except Exception as e:
-        print(f'Исключение при сохранении аудиофайла: {e}')
-        log_error(f'Исключение при сохранении аудиофайла: {e}')
-
-async def handle_audio_message(message_data, sender_name):
-    audio_data = message_data.get('fileMessageData', {})
-    download_url = audio_data.get('downloadUrl')
-    file_name = audio_data.get('fileName')
-    print("Имя файла:", file_name)
-    print(f"Получено аудиосообщение от {sender_name}")
-    print("Скачиваем по URL:", download_url)
-
-    log_info(f"Скачиваем по URL: {download_url}")
-    log_info(f"Имя файла: {file_name}")
-    log_info(f"Получено аудиосообщение от {sender_name}")
-
-    await save_audio(download_url, file_name)
-    file_path = os.path.join('audio_files', file_name)
-
-    # Используем ThreadPoolExecutor для транскрипции
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        transcribed_text = await loop.run_in_executor(executor, transcribe_audio, file_path)
-
-    if transcribed_text:
-        text = transcribed_text
-        print(f"Распознанный текст: {text}")
-    else:
-        text = 'Не удалось распознать аудиосообщение'
-
-    return text
-    
 class WhatsAppBot:
     def __init__(self, app):
         self.app = app
         self.green_api = GreenAPI(app)
-        self.blocklist = [
-            '77775216269',
-            '77054749947'
-        ]
+        self.last_outgoing_status_time = datetime.now()
+        self.pending_ai_responses = {}  # Store pending responses by chat_id
 
     async def process_message(self, message: dict):
         try:
             receipt_id = message.get('receiptId')
-            sender_data = message.get('body', {}).get('senderData', {})
-            message_data = message.get('body', {}).get('messageData', {})
-            print()
-            print()
-            print(message_data)
-            print()
-            print()
-
-            phone_number = sender_data.get('chatId')[:-5]
-
-            if phone_number in self.blocklist:
-                print(f"Сообщение от {phone_number} заблокировано, оно не будет обработано.")
-                log_info(f"[BLOCKLIST] Сообщение от {phone_number} заблокировано, оно не будет обработано.")
-                await self.green_api.delete_notification(receipt_id)
-                return
+            body = message.get('body', {})
+            instance_data = body.get('instanceData', {})
+            status = body.get('status')
+            timestamp = body.get('timestamp')
+            message_id = body.get('idMessage')
+            send_by_api = body.get('sendByApi', False)
+            chat_id = body.get('senderData', {}).get('chatId', '')
+            print(f'CHAT ID ............ ========= [{chat_id}]')
+            client_phone_number = body.get('senderData', {}).get('chatId', '').replace('@c.us', '')
+            manager_phone_number = instance_data.get('wid', '').replace('@c.us', '')
+            print(f'[client phone number] {client_phone_number}')
+            print(f'[manager phone number] {manager_phone_number}')
             
-            sender_name = sender_data.get('chatName') or sender_data.get('senderContactName', 'Unknown')
-            message_type = message_data.get('typeMessage')
+            # имя отправителя
+            sender_name = body.get('senderData', {}).get('chatName') or body.get('senderData', {}).get('senderContactName', 'Unknown')
+            
+            # тип сообщения
+            message_type = body.get('typeWebhook')
 
             text = None
-            if message_type == 'textMessage':
-                text = message_data.get('textMessageData', {}).get('textMessage')
-                print(f"Получено текстовое сообщение от {sender_name}: {text}")
+            if message_type == 'incomingMessageReceived':
+                print(f'Входящее сообщение от клиента {client_phone_number}')
+                log_info(f'Входящее сообщение от клиента {client_phone_number}')
+
+                message_data = body.get('messageData', {})
+                if message_data.get('typeMessage') == 'textMessage':
+                    text = message_data.get('textMessageData', {}).get('textMessage')
+                elif message_data.get('typeMessage') == 'extendedTextMessage':
+                    text = message_data.get('extendedTextMessageData', {}).get('text')
+                elif message_data.get('typeMessage') == 'imageMessage':
+                    image_url = message_data.get('imageMessageData', {}).get('url')
+                    print(f"Получено изображение: {image_url}")
+
+                await self.green_api.delete_notification(receipt_id)
+
+            elif message_type == 'outgoingMessageStatus':
+                print('Сообщение отправлено клиенту')
+                status = body.get('status')
+                log_info(f"Получено статус сообщения: {status}")
+                if status == 'sent':
+                    with self.app.app_context():
+                        manager = Client.query.filter_by(phone_number=manager_phone_number).first()
+                        if not manager:
+                            manager = Client(
+                                phone_number=manager_phone_number,
+                                name_in_whatsapp=sender_name,
+                                source='WhatsApp',
+                                first_message=text,
+                                language='kz',
+                                role_manager=True
+                            )
+                            db.session.add(manager)
+                            db.session.commit()
+
+                        await WhatsAppBotUtils.save_notification(
+                            receipt_id=receipt_id,
+                            phone_number=manager_phone_number,
+                            message_text='text',
+                            message_type=message_type,
+                            message_id=message_id,
+                            send_by_api=False,
+                            received_at=timestamp,
+                        )
+                    await self.green_api.delete_notification(receipt_id)
+                    return
             
-            elif message_type == 'extendedTextMessage':
-                # если это расширенное текстовое сообщение
-                text = message_data.get('extendedTextMessageData', {}).get('text')
-                print(f"Получено расширенное текстовое сообщение от {sender_name}: {text}")
-                log_info(f"Получено расширенное текстовое сообщение от {sender_name}: {text}")
-            
-            elif message_type == 'audioMessage':
-                text = await handle_audio_message(message_data, sender_name)
-            else:
-                print(f"Неизвестный тип сообщения от {sender_name}: {message_type}")
-                text = None
+                # if status == 'sent':
+                #     print(receipt_id)
+                #     print()
+                    # data_message = await self.green_api.get_message(chat_id, message_id)
+                    # await self.green_api.send_message(MANAGER_PHONE_NUMBER, data_message)
+                    
+                    # log_info(f'[DATA_MESSAGE] {data_message}')
+                    # print(f'[DATA_MESSAGE] {data_message}')
+
+                    # логика получения сообщения по id от менеджера
+                    # сохранение в бд
+                    # и удалять уведомления от менеджера
+
+                elif status == 'delivered' or status == 'read':
+                    log_info(f"Удаление ненужного сообщения {receipt_id}")
+                    print(f"Удаление ненужного сообщения {receipt_id}")
+                    await self.green_api.delete_notification(receipt_id)
 
 
-            print("Текст после обработки:", text)
+
             if text is None:
                 print("Текст сообщения отсутствует")
                 log_info("Текст сообщения отсутствует")
                 await self.green_api.delete_notification(receipt_id)
                 return
             
+
             with self.app.app_context():
-                client = Client.query.filter_by(phone_number=phone_number).first()
+                #* SAVE CLIENT
+                client = Client.query.filter_by(phone_number=client_phone_number).first()
                 if not client:
                     client = Client(
-                        phone_number=phone_number,
+                        phone_number=client_phone_number,
                         name_in_whatsapp=sender_name,
                         source='WhatsApp',
                         first_message=text,
-                        language='kz'
+                        language='kz',
+                        role_manager=False
                     )
                     db.session.add(client)
                     db.session.commit()
@@ -139,62 +141,97 @@ class WhatsAppBot:
                         await WhatsAppBotUtils.clear_context(self.green_api, client)
                         #! изменить
                         await self.green_api.delete_notification(receipt_id)
-                        log_info(f'Сброс контекста для клиента {phone_number}')
+                        log_info(f'Сброс контекста для клиента {client_phone_number}')
                         return
-                    
-                await WhatsAppBotUtils.save_notification(receipt_id, client.phone_number, text)
+                #* SAVE CLIENT
 
-                chat_history = ChatHistory.query.filter_by(phone_number=client.phone_number).all()
-                context = "\n".join([f"{entry.user_message}\n{entry.gpt_response}" for entry in chat_history])
-                
-                log_info(f'[CHAT HISTORY] История чата клиента: {phone_number}\n{chat_history}')
-                print()
-                log_info(f'[FULL CONTEXT] Полный контекст с клиентом: {phone_number}\n{context}')
+                #* SAVE NOTIFICATION
+                await WhatsAppBotUtils.save_notification(
+                    receipt_id=receipt_id,
+                    phone_number=client_phone_number,
+                    message_text=text,
+                    message_type=message_type,
+                    message_id=message_id,
+                    send_by_api=send_by_api,
+                    received_at=timestamp,
+                )
+                #* SAVE NOTIFICATION
 
-                try:
-                    # BASE REQUEST/RESPONSE
-                    response_text = await interact_with_chatgpt_async(system_prompt + context + " " + text)
-                except Exception as Err:
-                    print(f'[AI ERROR] {Err}')
-                    response_text = "Извините, произошла ошибка при обработке вашего запроса. Пожалуйста, попробуйте еще раз позже."
-                
+    
+                #? CONTEXT
+                # # дата для контекста два дня назад
+                # three_days_ago = datetime.now() - timedelta(days=2)
+                # # фильтрую записи чата по номеру телефона и дате за последние три дня
+                # chat_history = ChatHistory.query.filter(
+                #     ChatHistory.phone_number == client.phone_number,
+                #     ChatHistory.timestamp >= three_days_ago
+                # ).all()
+
+                # context = "\n".join([f"{entry.user_message}\n{entry.gpt_response}" for entry in chat_history])
+                # log_info(f'[CHAT HISTORY] История чата клиента: {client_phone_number}\n{chat_history}')
+                # print()
+                # log_info(f'[FULL CONTEXT] Полный контекст с клиентом: {client_phone_number}\n{context}')
+                #? CONTEXT
+
+                # try:
+                #     # BASE REQUEST/RESPONSE
+                #     response_text = await interact_with_chatgpt_async(system_prompt + context + " " + text)
+                # except Exception as Err:
+                #     print(f'[AI ERROR] {Err}')
+                #     response_text = "Извините, произошла ошибка при обработке вашего запроса. Пожалуйста, попробуйте еще раз позже."
+                #! ---
+                response_text = '[Здесь должно быть сообщение от ChatGPT]'
+                #! ---
+
+
                 chat_history_entry = ChatHistory(
-                    phone_number=client.phone_number,
+                    phone_number=client_phone_number,
                     user_message=text,
                     gpt_response=response_text
                 )
                 db.session.add(chat_history_entry)
                 db.session.commit()
-                print(response_text.startswith("Конечно"))
-                print(f'[TEXXXETTTT] {response_text}')
-                    # Здесь я проверяю анкету, чтобы отправить
-                check_send_form = await interact_with_chatgpt_async(f"Выступи в роли эксперта по анализу текста. На основе предоставленного текста {response_text} проверь, содержится ли 5 символов двоеточия ':' в тексте. Твой ответ должен содержать: 'True' или 'False'. Никогда не давай другие ответы.")
-                log_info(f'[Найдено 5 двоеточий] {check_send_form} в тексте: {response_text}')
-                print(f'[Найдено 5 двоеточий] {check_send_form}')
 
-                if check_send_form.strip() == 'True' and client.status == 'не отвечен':
-                    log_info('[Отправка менеджеру..]')
-                    client.status = 'success'
-                    # ---
-                    # send manager
-                    correct_form_send_manager = await interact_with_chatgpt_async(correct_form_prompt + response_text)
-                    await WhatsAppBotUtils.send_to_manager(self.green_api, correct_form_send_manager)
-                    # await WhatsAppBotUtils.clear_context(client)
-                    # ---
+                #* рекомендатор
+                # encoded_text = encode_text_for_url(response_text)
+                # split_url = f"https://api.whatsapp.com/send?phone={client_phone_number}&text={encoded_text}"
+                # short_url = shorten_url(split_url)
+                # result = f"❇️ Рекомендуемый ответ для: *{sender_name}* ({client_phone_number})\nНа сообщение: {text}\n➡️ *Кликните:* {short_url}"
+                # db.session.add(chat_history_entry)
+                # db.session.commit()
+                #* рекомендатор
 
-                    db.session.commit()
-                    print(f'Cтатус клиента поменялся на "success"')
-                    log_info(f'Cтатус клиента поменялся на "success"')
-                else:
-                    print(f'Cтатус клиента остается "не отвечен".')
-                    log_info(f'Cтатус клиента остается "не отвечен".')
 
-                await self.green_api.send_message(client.phone_number, response_text)
-                await self.green_api.delete_notification(receipt_id)
+                #? в случае отключения рекомендатора поменять result на response_text от ChatGPT
+
+                if chat_id:
+                    if RECOMMENDER:
+                        await self.green_api.send_message(MANAGER_PHONE_NUMBER, '[заглушка] рекомендованный ответ от ИИ в лс менеджеру')
+                    else:
+                        await self.green_api.send_message(client_phone_number, '[заглушка] ответ от ии')
+
 
         except Exception as e:
             print(f"Ошибка при обработке сообщения: {e}")
             log_error(f'Ошибка в процессе обработки сообщения: {e}')
+
+
+    async def check_and_send_pending_responses(self):
+        """Check and send pending AI responses if 15 seconds have passed since last status message."""
+        current_time = datetime.now()
+        time_since_last_status = (current_time - self.last_outgoing_status_time).total_seconds()
+        
+        if time_since_last_status >= 15:  # 15 seconds threshold
+            # Send all pending responses
+            for chat_id, data in list(self.pending_ai_responses.items()):  # Use list to avoid runtime modification issues
+                if RECOMMENDER:
+                    await self.green_api.send_message(MANAGER_PHONE_NUMBER, '[заглушка] рекомендованный ответ от ИИ в лс менеджеру')
+                else:
+                    await self.green_api.send_message(data['client_phone'], data['response'])
+                
+                # Remove sent response from pending queue
+                del self.pending_ai_responses[chat_id]
+                print(f"Sent delayed AI response to {data['client_phone']}")
 
 
     async def start_receiving(self):
@@ -207,5 +244,5 @@ class WhatsAppBot:
             await asyncio.sleep(2)
 
     def run(self):
-        print('[run] запуск полученных')
+        print('[WhatsAppBot] запуск полученных')
         asyncio.run(self.start_receiving())

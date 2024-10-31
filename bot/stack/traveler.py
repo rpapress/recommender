@@ -1,6 +1,6 @@
 import openai
 import asyncio
-# from bot.config import AI_API_KEY
+from bot.settings.config import AI_API_KEY
 
 
 class ChatGPTAssistant:
