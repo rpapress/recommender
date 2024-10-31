@@ -2,75 +2,73 @@ from bot.db.connect import db
 from datetime import datetime
 
 
-# -----------------------------------------------------------------------------------------------
-# WhatsApp main model
-class Client(db.Model):
-    __tablename__ = 'clients'
+class Message(db.Model):
+    __tablename__ = 'messages'
+    
     id = db.Column(db.Integer, primary_key=True)
-    is_manager = db.Column(db.Boolean, nullable=False, default=False)
-    phone_number = db.Column(db.String(15), unique=True, nullable=False)
-    first_message = db.Column(db.String(255), nullable=True)
-    language = db.Column(db.String(50), nullable=True)
-    name_in_whatsapp = db.Column(db.String(80), nullable=True)
-    name_user_input = db.Column(db.String(80), nullable=True)
-    status = db.Column(db.String(50), nullable=False, default='не отвечен')
-    source = db.Column(db.String(100), nullable=True)
-    client_first_contact_datetime = db.Column(db.DateTime, default=datetime.now)
+    receipt_id = db.Column(db.Integer, nullable=False, unique=True)
+    webhook_type = db.Column(db.String(50), nullable=False)  # incoming or outgoing
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    id_message = db.Column(db.String(50), nullable=False, unique=True)
+    is_from_client = db.Column(db.Boolean, nullable=False)  # True for client (incoming), False for manager (outgoing)
+    
+    instance_id = db.Column(db.String(50), nullable=False)
+    instance_wid = db.Column(db.String(50), nullable=False)
+    instance_type = db.Column(db.String(50), nullable=False, default="whatsapp")
+    
+    # Sender information (only applicable for incoming messages)
+    sender_chat_id = db.Column(db.String(50))
+    sender_name = db.Column(db.String(100))
+    sender_contact_name = db.Column(db.String(100))
+    
+    # Message content
+    message_type = db.Column(db.String(50))  # text, audio, etc.
+    message_text = db.Column(db.Text)  # applicable for text messages
+    message_description = db.Column(db.Text)
+    message_title = db.Column(db.String(100))
+    message_preview_type = db.Column(db.String(50))
+    message_thumbnail = db.Column(db.Text)  # optional, for storing thumbnails
+    message_url = db.Column(db.String(255))  # for links in the message
+    mime_type = db.Column(db.String(50))  # applicable for audio messages
 
     def __repr__(self):
-        return f'<Client {self.phone_number}>'
+        return f"<Message id={self.id} type={self.webhook_type} receipt_id={self.receipt_id}>"
+
+class OutgoingMessageStatus(db.Model):
+    __tablename__ = 'outgoing_message_statuses'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    # нужно будет вернуть pk, а чтобы это вернуть нужно receipt_id в message корректно передавать
+    # message_id = db.Column(db.String(50), db.ForeignKey('messages.id_message'), nullable=False)
+    message_id = db.Column(db.String(50), nullable=False)
+    chat_id = db.Column(db.String(50), nullable=False)
+    status = db.Column(db.String(20), nullable=False)  # delivered, read, etc.
+    send_by_api = db.Column(db.Boolean, nullable=False, default=False)
+    
+    def __repr__(self):
+        return f"<OutgoingMessageStatus id={self.id} message_id={self.message_id} status={self.status}>"
+
+class BotCounter(db.Model):
+    __tablename__ = 'bot_counters'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    manager_chat_id = db.Column(db.String(50), nullable=False, unique=True)
+    bot_reply_count = db.Column(db.Integer, default=0)
+    
+    def __repr__(self):
+        return f"<BotCounter manager_chat_id={self.manager_chat_id} bot_reply_count={self.bot_reply_count}>"
+
 
 # # -----------------------------------------------------------------------------------------------
-# # Manager table
-# class Manager(db.Model):
-#     __tablename__ = 'managers'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     phone_number = db.Column(db.String(15), unique=True, nullable=False)
-#     name_in_whatsapp = db.Column(db.String(100), nullable=True)
-#     source = db.Column(db.String(50), nullable=True)
-#     created_at = db.Column(db.DateTime, default=datetime.now)
-
-#     def __repr__(self):
-#         return f'<Manager {self.name_in_whatsapp}, Phone: {self.phone_number}>'
+# # Save context for ChatGPT
+# class ChatHistory(db.Model):
+#     __tablename__ = 'chat_history'
     
-# -----------------------------------------------------------------------------------------------
-# WhatsApp support model
-class Notification(db.Model):
-    __tablename__ = 'notifications'
-
-    id = db.Column(db.Integer, primary_key=True)
-    receipt_id = db.Column(db.String(255), nullable=False)
-    phone_number = db.Column(db.String(15), db.ForeignKey('clients.phone_number'), nullable=False)
-    message_text = db.Column(db.Text, nullable=False)
-    message_type = db.Column(db.String(50), nullable=False)
-    source_url = db.Column(db.String(255), nullable=True)
-
-    timestamp = db.Column(db.String(50), nullable=True)
-    message_id = db.Column(db.String(255), nullable=True)
-    send_by_api = db.Column(db.Boolean, nullable=False, default=False)
-    received_at = db.Column(db.DateTime, default=datetime.now)
-
-    def __repr__(self):
-        return f'<Notification {self.receipt_id}>'
-
-# class OutgoingMessage(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
-#     phone_number = db.Column(db.String(20), nullable=False)
-#     message_text = db.Column(db.String, nullable=False)
-#     status = db.Column(db.String(20), nullable=False)
+#     phone_number = db.Column(db.String(15), db.ForeignKey('clients.phone_number'), nullable=False)
+#     user_message = db.Column(db.Text, nullable=False)
+#     gpt_response = db.Column(db.Text, nullable=False)
 #     timestamp = db.Column(db.DateTime, default=datetime.now)
 
-# -----------------------------------------------------------------------------------------------
-# Save context for ChatGPT
-class ChatHistory(db.Model):
-    __tablename__ = 'chat_history'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    phone_number = db.Column(db.String(15), db.ForeignKey('clients.phone_number'), nullable=False)
-    user_message = db.Column(db.Text, nullable=False)
-    gpt_response = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.now)
-
-    def __repr__(self):
-        return f'<ChatHistory {self.id} - {self.phone_number}>'
+#     def __repr__(self):
+#         return f'<ChatHistory {self.id} - {self.phone_number}>'

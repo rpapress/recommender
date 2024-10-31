@@ -1569,3 +1569,674 @@ message_id:BAE5D5F29292549E' отправлено на номер 77075543658
 2024-10-31 14:13:26,982 - INFO - Текст сообщения отсутствует
 2024-10-31 14:13:26,984 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/49
 2024-10-31 14:13:27,327 - INFO - Уведомление с receipt_id 49 успешно удалено.
+2024-10-31 14:48:58,845 - INFO - [run] Запуск всех компонентов..
+2024-10-31 14:50:16,775 - INFO - [Входящее сообщение] {'receiptId': 1, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375417, 'idMessage': '3F2FF1AF298CFF893E3D', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'q', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 14:50:16,776 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 14:50:16,776 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/1
+2024-10-31 14:50:17,108 - INFO - Уведомление с receipt_id 1 успешно удалено.
+2024-10-31 14:50:17,186 - ERROR - Ошибка в процессе обработки сообщения: 'role_manager' is an invalid keyword argument for Client
+2024-10-31 14:50:29,111 - INFO - [STOP] Остановка ботов...
+2024-10-31 14:50:37,606 - INFO - [run] Запуск всех компонентов..
+2024-10-31 14:50:49,269 - INFO - [Входящее сообщение] {'receiptId': 2, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375449, 'idMessage': '3F0A7087F79F538F2BA2', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'привет', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 14:50:49,272 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 14:50:49,273 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/2
+2024-10-31 14:50:49,593 - INFO - Уведомление с receipt_id 2 успешно удалено.
+2024-10-31 14:50:50,119 - INFO - Сообщение '[заглушка] ответ от ии' отправлено на номер 77476758154
+2024-10-31 14:50:52,479 - INFO - [Входящее сообщение] {'receiptId': 3, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375452, 'idMessage': 'BAE54646FAF75101', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 14:50:52,480 - INFO - Получено статус сообщения: sent
+2024-10-31 14:50:52,642 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/3
+2024-10-31 14:50:52,978 - INFO - Уведомление с receipt_id 3 успешно удалено.
+2024-10-31 14:50:55,281 - INFO - [Входящее сообщение] {'receiptId': 4, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375452, 'idMessage': 'BAE54646FAF75101', 'status': 'delivered', 'sendByApi': True}}
+2024-10-31 14:50:55,285 - INFO - Получено статус сообщения: delivered
+2024-10-31 14:50:55,286 - INFO - Удаление ненужного сообщения 4
+2024-10-31 14:50:55,287 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/4
+2024-10-31 14:50:55,600 - INFO - Уведомление с receipt_id 4 успешно удалено.
+2024-10-31 14:50:55,601 - INFO - Текст сообщения отсутствует
+2024-10-31 14:50:55,602 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/4
+2024-10-31 14:50:56,041 - INFO - Уведомление с receipt_id 4 успешно удалено.
+2024-10-31 14:51:20,337 - INFO - [Входящее сообщение] {'receiptId': 5, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375480, 'idMessage': 'BAE54646FAF75101', 'status': 'read', 'sendByApi': True}}
+2024-10-31 14:51:20,343 - INFO - Получено статус сообщения: read
+2024-10-31 14:51:20,344 - INFO - Удаление ненужного сообщения 5
+2024-10-31 14:51:20,344 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/5
+2024-10-31 14:51:20,678 - INFO - Уведомление с receipt_id 5 успешно удалено.
+2024-10-31 14:51:20,680 - INFO - Текст сообщения отсутствует
+2024-10-31 14:51:20,681 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/5
+2024-10-31 14:51:21,011 - INFO - Уведомление с receipt_id 5 успешно удалено.
+2024-10-31 14:51:45,359 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:20:40,133 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:20:41,466 - INFO - [Входящее сообщение] {'receiptId': 1, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77008992607@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375767, 'idMessage': '234EB41A540980EC8580C0B075A2819B', 'status': 'read', 'sendByApi': False}}
+2024-10-31 15:20:41,467 - INFO - Получено статус сообщения: read
+2024-10-31 15:20:41,468 - INFO - Удаление ненужного сообщения 1
+2024-10-31 15:20:41,468 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/1
+2024-10-31 15:20:41,822 - INFO - Уведомление с receipt_id 1 успешно удалено.
+2024-10-31 15:20:41,825 - INFO - Текст сообщения отсутствует
+2024-10-31 15:20:41,826 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/1
+2024-10-31 15:20:42,159 - INFO - Уведомление с receipt_id 1 успешно удалено.
+2024-10-31 15:20:44,477 - INFO - [Входящее сообщение] {'receiptId': 2, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77008992607@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730375767, 'idMessage': 'CA13CD5C12B0D53BF2122DE4A78AD87F', 'status': 'read', 'sendByApi': False}}
+2024-10-31 15:20:44,482 - INFO - Получено статус сообщения: read
+2024-10-31 15:20:44,482 - INFO - Удаление ненужного сообщения 2
+2024-10-31 15:20:44,484 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/2
+2024-10-31 15:20:44,852 - INFO - Уведомление с receipt_id 2 успешно удалено.
+2024-10-31 15:20:44,852 - INFO - Текст сообщения отсутствует
+2024-10-31 15:20:44,852 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/2
+2024-10-31 15:20:45,161 - INFO - Уведомление с receipt_id 2 успешно удалено.
+2024-10-31 15:22:02,835 - INFO - [Входящее сообщение] {'receiptId': 3, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377323, 'idMessage': '3FCE57EBD5117753B9FC', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'q', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:22:02,836 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:22:02,836 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/3
+2024-10-31 15:22:03,190 - INFO - Уведомление с receipt_id 3 успешно удалено.
+2024-10-31 15:22:03,615 - INFO - Сообщение '[заглушка] рекомендованный ответ от ИИ в лс менеджеру' отправлено на номер 77075543658
+2024-10-31 15:22:05,977 - INFO - [Входящее сообщение] {'receiptId': 4, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77075543658@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377325, 'idMessage': 'BAE547B50E6EBA8E', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:22:05,979 - INFO - Получено статус сообщения: sent
+2024-10-31 15:22:06,075 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/4
+2024-10-31 15:22:06,407 - INFO - Уведомление с receipt_id 4 успешно удалено.
+2024-10-31 15:22:20,068 - INFO - [Входящее сообщение] {'receiptId': 5, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377340, 'idMessage': 'FA2C5A5F45E6EA2EE18EAB83A66270CE', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'textMessage', 'textMessageData': {'textMessage': 'приветствую'}}}}
+2024-10-31 15:22:20,073 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:22:20,074 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/5
+2024-10-31 15:22:20,382 - INFO - Уведомление с receipt_id 5 успешно удалено.
+2024-10-31 15:22:20,821 - INFO - Сообщение '[заглушка] рекомендованный ответ от ИИ в лс менеджеру' отправлено на номер 77075543658
+2024-10-31 15:22:23,145 - INFO - [Входящее сообщение] {'receiptId': 6, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77075543658@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377342, 'idMessage': 'BAE58DE4D824956F', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:22:23,149 - INFO - Получено статус сообщения: sent
+2024-10-31 15:22:23,241 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/6
+2024-10-31 15:22:23,566 - INFO - Уведомление с receipt_id 6 успешно удалено.
+2024-10-31 15:23:36,784 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:23:41,450 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:23:49,141 - INFO - [Входящее сообщение] {'receiptId': 7, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377428, 'idMessage': '3F9D2F777181307CB400', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'q', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:23:49,143 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:23:49,143 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/7
+2024-10-31 15:23:49,471 - INFO - Уведомление с receipt_id 7 успешно удалено.
+2024-10-31 15:23:49,900 - INFO - Сообщение '[заглушка] рекомендованный ответ от ИИ в лс менеджеру' отправлено на номер 77075543658
+2024-10-31 15:23:52,245 - INFO - [Входящее сообщение] {'receiptId': 8, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77075543658@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377431, 'idMessage': 'BAE58EBC6A8EEF2D', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:23:52,250 - INFO - Получено статус сообщения: sent
+2024-10-31 15:23:52,338 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/8
+2024-10-31 15:23:52,677 - INFO - Уведомление с receipt_id 8 успешно удалено.
+2024-10-31 15:24:25,871 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:24:36,373 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:25:24,847 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:25:31,939 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:25:39,619 - INFO - [Входящее сообщение] {'receiptId': 9, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377540, 'idMessage': '272D99C39C562DC11E149D78FD0FA75C', 'status': 'sent', 'sendByApi': False}}
+2024-10-31 15:25:39,619 - INFO - Получено статус сообщения: sent
+2024-10-31 15:25:39,725 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/9
+2024-10-31 15:25:40,038 - INFO - Уведомление с receipt_id 9 успешно удалено.
+2024-10-31 15:25:42,365 - INFO - [Входящее сообщение] {'receiptId': 10, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377540, 'idMessage': '272D99C39C562DC11E149D78FD0FA75C', 'status': 'delivered', 'sendByApi': False}}
+2024-10-31 15:25:42,365 - INFO - Получено статус сообщения: delivered
+2024-10-31 15:25:42,365 - INFO - Удаление ненужного сообщения 10
+2024-10-31 15:25:42,365 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/10
+2024-10-31 15:25:42,700 - INFO - Уведомление с receipt_id 10 успешно удалено.
+2024-10-31 15:25:42,700 - INFO - Текст сообщения отсутствует
+2024-10-31 15:25:42,700 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/10
+2024-10-31 15:25:43,015 - INFO - Уведомление с receipt_id 10 успешно удалено.
+2024-10-31 15:25:50,326 - INFO - [Входящее сообщение] {'receiptId': 11, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377551, 'idMessage': '272D99C39C562DC11E149D78FD0FA75C', 'status': 'read', 'sendByApi': False}}
+2024-10-31 15:25:50,330 - INFO - Получено статус сообщения: read
+2024-10-31 15:25:50,332 - INFO - Удаление ненужного сообщения 11
+2024-10-31 15:25:50,333 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/11
+2024-10-31 15:25:50,636 - INFO - Уведомление с receipt_id 11 успешно удалено.
+2024-10-31 15:25:50,636 - INFO - Текст сообщения отсутствует
+2024-10-31 15:25:50,637 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/11
+2024-10-31 15:25:50,965 - INFO - Уведомление с receipt_id 11 успешно удалено.
+2024-10-31 15:25:57,468 - INFO - [Входящее сообщение] {'receiptId': 12, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377558, 'idMessage': '3F1C2290D95C58DB13CD', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'салам салам', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:25:57,468 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:25:57,468 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/12
+2024-10-31 15:25:57,801 - INFO - Уведомление с receipt_id 12 успешно удалено.
+2024-10-31 15:25:58,242 - INFO - Сообщение '[заглушка] ответ от ии' отправлено на номер 77476758154
+2024-10-31 15:26:00,570 - INFO - [Входящее сообщение] {'receiptId': 13, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377560, 'idMessage': 'BAE53B963823AE0A', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:26:00,574 - INFO - Получено статус сообщения: sent
+2024-10-31 15:26:00,670 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/13
+2024-10-31 15:26:01,015 - INFO - Уведомление с receipt_id 13 успешно удалено.
+2024-10-31 15:26:03,322 - INFO - [Входящее сообщение] {'receiptId': 14, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377560, 'idMessage': 'BAE53B963823AE0A', 'status': 'delivered', 'sendByApi': True}}
+2024-10-31 15:26:03,326 - INFO - Получено статус сообщения: delivered
+2024-10-31 15:26:03,327 - INFO - Удаление ненужного сообщения 14
+2024-10-31 15:26:03,328 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/14
+2024-10-31 15:26:03,636 - INFO - Уведомление с receipt_id 14 успешно удалено.
+2024-10-31 15:26:03,638 - INFO - Текст сообщения отсутствует
+2024-10-31 15:26:03,639 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/14
+2024-10-31 15:26:03,984 - INFO - Уведомление с receipt_id 14 успешно удалено.
+2024-10-31 15:27:32,200 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:27:37,076 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:27:38,471 - INFO - [Входящее сообщение] {'receiptId': 15, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377660, 'idMessage': 'BAE53B963823AE0A', 'status': 'read', 'sendByApi': True}}
+2024-10-31 15:27:38,472 - INFO - Получено статус сообщения: read
+2024-10-31 15:27:38,472 - INFO - Удаление ненужного сообщения 15
+2024-10-31 15:27:38,472 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/15
+2024-10-31 15:27:38,788 - INFO - Уведомление с receipt_id 15 успешно удалено.
+2024-10-31 15:27:38,789 - INFO - Текст сообщения отсутствует
+2024-10-31 15:27:38,790 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/15
+2024-10-31 15:27:39,081 - INFO - Уведомление с receipt_id 15 успешно удалено.
+2024-10-31 15:27:45,467 - INFO - [Входящее сообщение] {'receiptId': 16, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377667, 'idMessage': '3FE05047E4FD5D1DBE3C', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'прив', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:27:45,471 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:27:45,472 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/16
+2024-10-31 15:27:45,817 - INFO - Уведомление с receipt_id 16 успешно удалено.
+2024-10-31 15:27:45,918 - ERROR - Ошибка в процессе обработки сообщения: cannot access local variable 'ANSWER_MANAGER' where it is not associated with a value
+2024-10-31 15:27:55,545 - INFO - [Входящее сообщение] {'receiptId': 17, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377675, 'idMessage': '2080672358FD8489708D079E6952A7BA', 'status': 'sent', 'sendByApi': False}}
+2024-10-31 15:27:55,549 - INFO - Получено статус сообщения: sent
+2024-10-31 15:27:55,639 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/17
+2024-10-31 15:27:55,968 - INFO - Уведомление с receipt_id 17 успешно удалено.
+2024-10-31 15:27:58,288 - INFO - [Входящее сообщение] {'receiptId': 18, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377675, 'idMessage': '2080672358FD8489708D079E6952A7BA', 'status': 'delivered', 'sendByApi': False}}
+2024-10-31 15:27:58,292 - INFO - Получено статус сообщения: delivered
+2024-10-31 15:27:58,294 - INFO - Удаление ненужного сообщения 18
+2024-10-31 15:27:58,294 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/18
+2024-10-31 15:27:58,638 - INFO - Уведомление с receipt_id 18 успешно удалено.
+2024-10-31 15:27:58,640 - INFO - Текст сообщения отсутствует
+2024-10-31 15:27:58,641 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/18
+2024-10-31 15:27:58,961 - INFO - Уведомление с receipt_id 18 успешно удалено.
+2024-10-31 15:28:01,284 - INFO - [Входящее сообщение] {'receiptId': 19, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377675, 'idMessage': '2080672358FD8489708D079E6952A7BA', 'status': 'read', 'sendByApi': False}}
+2024-10-31 15:28:01,288 - INFO - Получено статус сообщения: read
+2024-10-31 15:28:01,288 - INFO - Удаление ненужного сообщения 19
+2024-10-31 15:28:01,289 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/19
+2024-10-31 15:28:01,607 - INFO - Уведомление с receipt_id 19 успешно удалено.
+2024-10-31 15:28:01,609 - INFO - Текст сообщения отсутствует
+2024-10-31 15:28:01,610 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/19
+2024-10-31 15:28:01,929 - INFO - Уведомление с receipt_id 19 успешно удалено.
+2024-10-31 15:28:11,482 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:30:11,124 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:30:20,816 - INFO - [Входящее сообщение] {'receiptId': 1, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377822, 'idMessage': '3FE53E44D80DCDF9274B', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'q', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:30:20,816 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:30:20,816 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/1
+2024-10-31 15:30:21,143 - INFO - Уведомление с receipt_id 1 успешно удалено.
+2024-10-31 15:30:21,567 - INFO - Сообщение '[заглушка] ответ от ии' отправлено на номер 77476758154
+2024-10-31 15:30:23,894 - INFO - [Входящее сообщение] {'receiptId': 2, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377823, 'idMessage': 'BAE53891E4D1B1C3', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:30:23,910 - INFO - Получено статус сообщения: sent
+2024-10-31 15:30:23,994 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/2
+2024-10-31 15:30:24,306 - INFO - Уведомление с receipt_id 2 успешно удалено.
+2024-10-31 15:30:26,614 - INFO - [Входящее сообщение] {'receiptId': 3, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377823, 'idMessage': 'BAE53891E4D1B1C3', 'status': 'delivered', 'sendByApi': True}}
+2024-10-31 15:30:26,614 - INFO - Получено статус сообщения: delivered
+2024-10-31 15:30:26,614 - INFO - Удаление ненужного сообщения 3
+2024-10-31 15:30:26,614 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/3
+2024-10-31 15:30:26,988 - INFO - Уведомление с receipt_id 3 успешно удалено.
+2024-10-31 15:30:26,988 - INFO - Текст сообщения отсутствует
+2024-10-31 15:30:27,004 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/3
+2024-10-31 15:30:27,318 - INFO - Уведомление с receipt_id 3 успешно удалено.
+2024-10-31 15:30:29,676 - INFO - [Входящее сообщение] {'receiptId': 4, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730377823, 'idMessage': 'BAE53891E4D1B1C3', 'status': 'read', 'sendByApi': True}}
+2024-10-31 15:30:29,676 - INFO - Получено статус сообщения: read
+2024-10-31 15:30:29,676 - INFO - Удаление ненужного сообщения 4
+2024-10-31 15:30:29,676 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/4
+2024-10-31 15:30:30,009 - INFO - Уведомление с receipt_id 4 успешно удалено.
+2024-10-31 15:30:30,009 - INFO - Текст сообщения отсутствует
+2024-10-31 15:30:30,009 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/4
+2024-10-31 15:30:30,318 - INFO - Уведомление с receipt_id 4 успешно удалено.
+2024-10-31 15:33:27,627 - INFO - [STOP] Остановка ботов...
+2024-10-31 15:33:32,104 - INFO - [run] Запуск всех компонентов..
+2024-10-31 15:33:48,059 - INFO - [Входящее сообщение] {'receiptId': 5, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378029, 'idMessage': '3F2813C80CA490920A3D', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'привет', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:33:48,059 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:33:48,059 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/5
+2024-10-31 15:33:48,374 - INFO - Уведомление с receipt_id 5 успешно удалено.
+2024-10-31 15:33:58,803 - INFO - Сообщение '[заглушка] ответ от ии' отправлено на номер 77476758154
+2024-10-31 15:34:01,106 - INFO - [Входящее сообщение] {'receiptId': 6, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378041, 'idMessage': 'BAE57A13669C2066', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:34:01,106 - INFO - Получено статус сообщения: sent
+2024-10-31 15:34:01,197 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/6
+2024-10-31 15:34:01,532 - INFO - Уведомление с receipt_id 6 успешно удалено.
+2024-10-31 15:34:03,884 - INFO - [Входящее сообщение] {'receiptId': 7, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378041, 'idMessage': 'BAE57A13669C2066', 'status': 'delivered', 'sendByApi': True}}
+2024-10-31 15:34:03,884 - INFO - Получено статус сообщения: delivered
+2024-10-31 15:34:03,884 - INFO - Удаление ненужного сообщения 7
+2024-10-31 15:34:03,884 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/7
+2024-10-31 15:34:04,218 - INFO - Уведомление с receipt_id 7 успешно удалено.
+2024-10-31 15:34:04,218 - INFO - Текст сообщения отсутствует
+2024-10-31 15:34:04,218 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/7
+2024-10-31 15:34:04,566 - INFO - Уведомление с receipt_id 7 успешно удалено.
+2024-10-31 15:34:06,903 - INFO - [Входящее сообщение] {'receiptId': 8, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378041, 'idMessage': 'BAE57A13669C2066', 'status': 'read', 'sendByApi': True}}
+2024-10-31 15:34:06,903 - INFO - Получено статус сообщения: read
+2024-10-31 15:34:06,903 - INFO - Удаление ненужного сообщения 8
+2024-10-31 15:34:06,903 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/8
+2024-10-31 15:34:07,213 - INFO - Уведомление с receipt_id 8 успешно удалено.
+2024-10-31 15:34:07,213 - INFO - Текст сообщения отсутствует
+2024-10-31 15:34:07,213 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/8
+2024-10-31 15:34:07,557 - INFO - Уведомление с receipt_id 8 успешно удалено.
+2024-10-31 15:34:09,902 - INFO - [Входящее сообщение] {'receiptId': 9, 'body': {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378049, 'idMessage': '3FB8011C47786D3B1764', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': '123', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}}
+2024-10-31 15:34:09,902 - INFO - Входящее сообщение от клиента 77476758154
+2024-10-31 15:34:09,902 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/9
+2024-10-31 15:34:10,229 - INFO - Уведомление с receipt_id 9 успешно удалено.
+2024-10-31 15:34:20,669 - INFO - Сообщение '[заглушка] ответ от ии' отправлено на номер 77476758154
+2024-10-31 15:34:22,970 - INFO - [Входящее сообщение] {'receiptId': 10, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378053, 'idMessage': '1608863E11B91C61081DC4392BB6003E', 'status': 'sent', 'sendByApi': False}}
+2024-10-31 15:34:22,970 - INFO - Получено статус сообщения: sent
+2024-10-31 15:34:23,065 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/10
+2024-10-31 15:34:23,413 - INFO - Уведомление с receipt_id 10 успешно удалено.
+2024-10-31 15:34:25,721 - INFO - [Входящее сообщение] {'receiptId': 11, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378053, 'idMessage': '1608863E11B91C61081DC4392BB6003E', 'status': 'delivered', 'sendByApi': False}}
+2024-10-31 15:34:25,721 - INFO - Получено статус сообщения: delivered
+2024-10-31 15:34:25,721 - INFO - Удаление ненужного сообщения 11
+2024-10-31 15:34:25,721 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/11
+2024-10-31 15:34:26,051 - INFO - Уведомление с receipt_id 11 успешно удалено.
+2024-10-31 15:34:26,051 - INFO - Текст сообщения отсутствует
+2024-10-31 15:34:26,051 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/11
+2024-10-31 15:34:26,366 - INFO - Уведомление с receipt_id 11 успешно удалено.
+2024-10-31 15:34:28,701 - INFO - [Входящее сообщение] {'receiptId': 12, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378053, 'idMessage': '1608863E11B91C61081DC4392BB6003E', 'status': 'read', 'sendByApi': False}}
+2024-10-31 15:34:28,717 - INFO - Получено статус сообщения: read
+2024-10-31 15:34:28,717 - INFO - Удаление ненужного сообщения 12
+2024-10-31 15:34:28,717 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/12
+2024-10-31 15:34:29,054 - INFO - Уведомление с receipt_id 12 успешно удалено.
+2024-10-31 15:34:29,056 - INFO - Текст сообщения отсутствует
+2024-10-31 15:34:29,057 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/12
+2024-10-31 15:34:29,371 - INFO - Уведомление с receipt_id 12 успешно удалено.
+2024-10-31 15:34:31,687 - INFO - [Входящее сообщение] {'receiptId': 13, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378062, 'idMessage': 'BAE5ECB2C7B76A1E', 'status': 'sent', 'sendByApi': True}}
+2024-10-31 15:34:31,687 - INFO - Получено статус сообщения: sent
+2024-10-31 15:34:31,773 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/13
+2024-10-31 15:34:32,085 - INFO - Уведомление с receipt_id 13 успешно удалено.
+2024-10-31 15:34:34,405 - INFO - [Входящее сообщение] {'receiptId': 14, 'body': {'typeWebhook': 'outgoingMessageStatus', 'chatId': '77476758154@c.us', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730378062, 'idMessage': 'BAE5ECB2C7B76A1E', 'status': 'read', 'sendByApi': True}}
+2024-10-31 15:34:34,421 - INFO - Получено статус сообщения: read
+2024-10-31 15:34:34,421 - INFO - Удаление ненужного сообщения 14
+2024-10-31 15:34:34,421 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/14
+2024-10-31 15:34:34,718 - INFO - Уведомление с receipt_id 14 успешно удалено.
+2024-10-31 15:34:34,720 - INFO - Текст сообщения отсутствует
+2024-10-31 15:34:34,720 - INFO - [delete_notification] Удаление уведомления по URL: https://7103.api.greenapi.com/waInstance7103942473/deleteNotification/0040cb8ba8f642de98fbba29668639e01635e4934a624d778c/14
+2024-10-31 15:34:35,078 - INFO - Уведомление с receipt_id 14 успешно удалено.
+2024-10-31 15:34:36,728 - INFO - [STOP] Остановка ботов...
+2024-10-31 21:29:20,876 - INFO - Deleted old incoming notifications.
+2024-10-31 21:29:20,878 - INFO - Started receiving incoming notifications.
+2024-10-31 21:29:28,279 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:29:33,469 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:30:06,878 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:06,879 - INFO - Deleted old incoming notifications.
+2024-10-31 21:30:06,879 - INFO - Started receiving incoming notifications.
+2024-10-31 21:30:07,091 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:07,307 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:07,537 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:07,760 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:07,960 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:08,160 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:09,378 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:09,564 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:09,771 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:09,960 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:10,153 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:10,356 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:10,559 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:10,755 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:10,954 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:11,154 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:11,344 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:11,542 - ERROR - Request was failed with status code: 500. Data: Internal server error
+2024-10-31 21:30:12,766 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:30:17,960 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:30:23,161 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:30:28,383 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:34:32,316 - INFO - Deleted old incoming notifications.
+2024-10-31 21:34:32,316 - INFO - Started receiving incoming notifications.
+2024-10-31 21:34:43,900 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:34:49,099 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:35:49,903 - INFO - Deleted old incoming notifications.
+2024-10-31 21:35:49,906 - INFO - [run] Запуск всех компонентов..
+2024-10-31 21:35:49,906 - INFO - Started receiving incoming notifications.
+2024-10-31 21:35:55,096 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:00,306 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:01,949 - INFO - [STOP] Остановка ботов...
+2024-10-31 21:36:05,648 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:10,845 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:16,063 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:21,269 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:26,458 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:31,643 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:36,833 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:42,035 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:47,225 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:52,413 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:36:58,595 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:03,789 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:09,028 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:17,261 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:22,529 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:27,716 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:32,909 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:38,110 - ERROR - Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2024-10-31 21:37:51,708 - INFO - Deleted old incoming notifications.
+2024-10-31 21:37:51,711 - INFO - [run] Запуск всех компонентов..
+2024-10-31 21:37:51,711 - INFO - Started receiving incoming notifications.
+2024-10-31 21:38:17,421 - INFO - [STOP] Остановка ботов...
+2024-10-31 21:41:06,690 - INFO - Deleted old incoming notifications.
+2024-10-31 21:41:06,693 - INFO - [run] Запуск всех компонентов..
+2024-10-31 21:41:06,693 - INFO - Started receiving incoming notifications.
+2024-10-31 21:41:38,316 - INFO - [STOP] Остановка ботов...
+2024-10-31 21:42:47,195 - INFO - Deleted old incoming notifications.
+2024-10-31 21:42:47,195 - INFO - [run] Запуск всех компонентов..
+2024-10-31 21:42:47,195 - INFO - Started receiving incoming notifications.
+2024-10-31 22:55:36,933 - INFO - База данных успешно инициализирована
+2024-10-31 22:55:36,935 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 22:55:36,936 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 22:55:36,937 - INFO - Приложение успешно запущено
+2024-10-31 22:57:44,227 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 22:57:44,228 - INFO - Начинаем остановку приложения...
+2024-10-31 22:57:44,228 - INFO - Приложение успешно остановлено
+2024-10-31 22:59:07,615 - INFO - База данных успешно инициализирована
+2024-10-31 22:59:07,616 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 22:59:07,617 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 22:59:07,617 - INFO - Приложение успешно запущено
+2024-10-31 23:03:12,270 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:03:12,271 - INFO - Начинаем остановку приложения...
+2024-10-31 23:03:12,272 - INFO - Приложение успешно остановлено
+2024-10-31 23:03:19,998 - INFO - База данных успешно инициализирована
+2024-10-31 23:03:19,998 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:03:19,998 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:03:19,998 - INFO - Приложение успешно запущено
+2024-10-31 23:03:21,331 - INFO - Получен webhook типа: incomingMessageReceived
+2024-10-31 23:03:21,405 - ERROR - Ошибка сохранения входящего сообщения: (psycopg2.errors.NotNullViolation) null value in column "receipt_id" of relation "messages" violates not-null constraint
+DETAIL:  Failing row contains (1, null, incoming, 2024-10-31 20:03:21.338899, 3F4A1B248B8AE81BA9A5, t, 7103942473, 77075543658@c.us, whatsapp, 77476758154@c.us, Марк, null, extendedTextMessage, null, null, null, null, null, , null).
+
+[SQL: INSERT INTO messages (receipt_id, webhook_type, timestamp, id_message, is_from_client, instance_id, instance_wid, instance_type, sender_chat_id, sender_name, sender_contact_name, message_type, message_text, message_description, message_title, message_preview_type, message_thumbnail, message_url, mime_type) VALUES (%(receipt_id)s, %(webhook_type)s, %(timestamp)s, %(id_message)s, %(is_from_client)s, %(instance_id)s, %(instance_wid)s, %(instance_type)s, %(sender_chat_id)s, %(sender_name)s, %(sender_contact_name)s, %(message_type)s, %(message_text)s, %(message_description)s, %(message_title)s, %(message_preview_type)s, %(message_thumbnail)s, %(message_url)s, %(mime_type)s) RETURNING messages.id]
+[parameters: {'receipt_id': None, 'webhook_type': 'incoming', 'timestamp': datetime.datetime(2024, 10, 31, 20, 3, 21, 338899), 'id_message': '3F4A1B248B8AE81BA9A5', 'is_from_client': True, 'instance_id': '7103942473', 'instance_wid': '77075543658@c.us', 'instance_type': 'whatsapp', 'sender_chat_id': '77476758154@c.us', 'sender_name': 'Марк', 'sender_contact_name': None, 'message_type': 'extendedTextMessage', 'message_text': None, 'message_description': None, 'message_title': None, 'message_preview_type': None, 'message_thumbnail': None, 'message_url': '', 'mime_type': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-31 23:03:25,129 - INFO - Получен webhook типа: incomingMessageReceived
+2024-10-31 23:03:25,201 - ERROR - Ошибка сохранения входящего сообщения: (psycopg2.errors.NotNullViolation) null value in column "receipt_id" of relation "messages" violates not-null constraint
+DETAIL:  Failing row contains (2, null, incoming, 2024-10-31 20:03:25.1321, 3F92469DF81DBBDAE490, t, 7103942473, 77075543658@c.us, whatsapp, 77476758154@c.us, Марк, null, extendedTextMessage, null, null, null, null, null, , null).
+
+[SQL: INSERT INTO messages (receipt_id, webhook_type, timestamp, id_message, is_from_client, instance_id, instance_wid, instance_type, sender_chat_id, sender_name, sender_contact_name, message_type, message_text, message_description, message_title, message_preview_type, message_thumbnail, message_url, mime_type) VALUES (%(receipt_id)s, %(webhook_type)s, %(timestamp)s, %(id_message)s, %(is_from_client)s, %(instance_id)s, %(instance_wid)s, %(instance_type)s, %(sender_chat_id)s, %(sender_name)s, %(sender_contact_name)s, %(message_type)s, %(message_text)s, %(message_description)s, %(message_title)s, %(message_preview_type)s, %(message_thumbnail)s, %(message_url)s, %(mime_type)s) RETURNING messages.id]
+[parameters: {'receipt_id': None, 'webhook_type': 'incoming', 'timestamp': datetime.datetime(2024, 10, 31, 20, 3, 25, 132100), 'id_message': '3F92469DF81DBBDAE490', 'is_from_client': True, 'instance_id': '7103942473', 'instance_wid': '77075543658@c.us', 'instance_type': 'whatsapp', 'sender_chat_id': '77476758154@c.us', 'sender_name': 'Марк', 'sender_contact_name': None, 'message_type': 'extendedTextMessage', 'message_text': None, 'message_description': None, 'message_title': None, 'message_preview_type': None, 'message_thumbnail': None, 'message_url': '', 'mime_type': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-31 23:03:31,605 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:03:31,606 - INFO - Начинаем остановку приложения...
+2024-10-31 23:03:31,875 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:03:31,876 - INFO - Начинаем остановку приложения...
+2024-10-31 23:05:21,423 - INFO - База данных успешно инициализирована
+2024-10-31 23:05:21,425 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:05:21,426 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:05:21,427 - INFO - Приложение успешно запущено
+2024-10-31 23:05:29,087 - INFO - Получен webhook типа: incomingMessageReceived
+2024-10-31 23:05:29,088 - ERROR - Отсутствует receipt_id в данных сообщения
+2024-10-31 23:05:39,071 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:05:39,146 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "A9129B52DA64A408D366E112248B4F89"
+LINE 1: ...message_id, chat_id, status, send_by_api) VALUES ('A9129B52D...
+                                                             ^
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'A9129B52DA64A408D366E112248B4F89', 'chat_id': '77476758154@c.us', 'status': 'sent', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-10-31 23:05:40,805 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:05:40,878 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "A9129B52DA64A408D366E112248B4F89"
+LINE 1: ...message_id, chat_id, status, send_by_api) VALUES ('A9129B52D...
+                                                             ^
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'A9129B52DA64A408D366E112248B4F89', 'chat_id': '77476758154@c.us', 'status': 'read', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-10-31 23:05:41,558 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:05:41,629 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "A9129B52DA64A408D366E112248B4F89"
+LINE 1: ...message_id, chat_id, status, send_by_api) VALUES ('A9129B52D...
+                                                             ^
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'A9129B52DA64A408D366E112248B4F89', 'chat_id': '77476758154@c.us', 'status': 'delivered', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-10-31 23:05:49,029 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:05:49,030 - INFO - Начинаем остановку приложения...
+2024-10-31 23:05:54,624 - INFO - Приложение успешно остановлено
+2024-10-31 23:07:46,884 - INFO - База данных успешно инициализирована
+2024-10-31 23:07:46,884 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:07:46,884 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:07:46,884 - INFO - Приложение успешно запущено
+2024-10-31 23:07:53,228 - INFO - Получен webhook типа: incomingMessageReceived
+2024-10-31 23:07:53,228 - ERROR - Отсутствует receipt_id в данных сообщения
+2024-10-31 23:07:57,899 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:07:57,967 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "CBA12170760C2937749133E1CE61982C"
+LINE 1: ...message_id, chat_id, status, send_by_api) VALUES ('CBA121707...
+                                                             ^
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'CBA12170760C2937749133E1CE61982C', 'chat_id': '77476758154@c.us', 'status': 'sent', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-10-31 23:07:59,648 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:07:59,735 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "CBA12170760C2937749133E1CE61982C"
+LINE 1: ...message_id, chat_id, status, send_by_api) VALUES ('CBA121707...
+                                                             ^
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'CBA12170760C2937749133E1CE61982C', 'chat_id': '77476758154@c.us', 'status': 'read', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-10-31 23:08:00,440 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:08:00,523 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "CBA12170760C2937749133E1CE61982C"
+LINE 1: ...message_id, chat_id, status, send_by_api) VALUES ('CBA121707...
+                                                             ^
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'CBA12170760C2937749133E1CE61982C', 'chat_id': '77476758154@c.us', 'status': 'delivered', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-10-31 23:08:01,381 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:08:01,382 - INFO - Начинаем остановку приложения...
+2024-10-31 23:08:07,213 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:08:07,213 - INFO - Начинаем остановку приложения...
+2024-10-31 23:09:05,726 - ERROR - Ошибка инициализации базы данных: (psycopg2.errors.DatatypeMismatch) foreign key constraint "outgoing_message_statuses_message_id_fkey" cannot be implemented
+DETAIL:  Key columns "message_id" and "id" are of incompatible types: character varying and integer.
+
+[SQL: 
+CREATE TABLE outgoing_message_statuses (
+	id SERIAL NOT NULL, 
+	message_id VARCHAR(50) NOT NULL, 
+	chat_id VARCHAR(50) NOT NULL, 
+	status VARCHAR(20) NOT NULL, 
+	send_by_api BOOLEAN NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(message_id) REFERENCES messages (id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-10-31 23:11:48,474 - ERROR - Ошибка инициализации базы данных: (psycopg2.errors.InvalidForeignKey) there is no unique constraint matching given keys for referenced table "messages"
+
+[SQL: 
+CREATE TABLE outgoing_message_statuses (
+	id SERIAL NOT NULL, 
+	message_id VARCHAR(50) NOT NULL, 
+	chat_id VARCHAR(50) NOT NULL, 
+	status VARCHAR(20) NOT NULL, 
+	send_by_api BOOLEAN NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(message_id) REFERENCES messages (id_message)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-10-31 23:12:31,816 - INFO - База данных успешно инициализирована
+2024-10-31 23:12:31,816 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:12:31,816 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:12:31,816 - INFO - Приложение успешно запущено
+2024-10-31 23:12:36,176 - INFO - Получен webhook типа: incomingMessageReceived
+2024-10-31 23:12:36,176 - ERROR - Отсутствует receipt_id в данных сообщения
+2024-10-31 23:12:40,853 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:12:40,924 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.ForeignKeyViolation) insert or update on table "outgoing_message_statuses" violates foreign key constraint "outgoing_message_statuses_message_id_fkey"
+DETAIL:  Key (message_id)=(EB2FD3B29F29DFBC1CCF35B670207FAD) is not present in table "messages".
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'EB2FD3B29F29DFBC1CCF35B670207FAD', 'chat_id': '77476758154@c.us', 'status': 'sent', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-31 23:12:43,650 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:12:43,709 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.ForeignKeyViolation) insert or update on table "outgoing_message_statuses" violates foreign key constraint "outgoing_message_statuses_message_id_fkey"
+DETAIL:  Key (message_id)=(EB2FD3B29F29DFBC1CCF35B670207FAD) is not present in table "messages".
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'EB2FD3B29F29DFBC1CCF35B670207FAD', 'chat_id': '77476758154@c.us', 'status': 'delivered', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-31 23:12:44,389 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:12:44,440 - ERROR - Ошибка обновления статуса сообщения: (psycopg2.errors.ForeignKeyViolation) insert or update on table "outgoing_message_statuses" violates foreign key constraint "outgoing_message_statuses_message_id_fkey"
+DETAIL:  Key (message_id)=(EB2FD3B29F29DFBC1CCF35B670207FAD) is not present in table "messages".
+
+[SQL: INSERT INTO outgoing_message_statuses (message_id, chat_id, status, send_by_api) VALUES (%(message_id)s, %(chat_id)s, %(status)s, %(send_by_api)s) RETURNING outgoing_message_statuses.id]
+[parameters: {'message_id': 'EB2FD3B29F29DFBC1CCF35B670207FAD', 'chat_id': '77476758154@c.us', 'status': 'read', 'send_by_api': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-31 23:12:44,464 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:12:44,464 - INFO - Начинаем остановку приложения...
+2024-10-31 23:12:44,773 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:12:44,773 - INFO - Начинаем остановку приложения...
+2024-10-31 23:36:05,933 - INFO - База данных успешно инициализирована
+2024-10-31 23:36:05,934 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:36:05,935 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:36:05,937 - INFO - Приложение успешно запущено
+2024-10-31 23:36:19,076 - INFO - Получен webhook типа: incomingMessageReceived
+2024-10-31 23:36:19,077 - ERROR - Отсутствует receipt_id в данных сообщения
+2024-10-31 23:36:31,078 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:36:31,227 - INFO - Обновлен статус сообщения: 1
+2024-10-31 23:36:31,939 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:36:32,080 - INFO - Обновлен статус сообщения: 2
+2024-10-31 23:36:33,796 - INFO - Получен webhook типа: outgoingMessageStatus
+2024-10-31 23:36:33,939 - INFO - Обновлен статус сообщения: 3
+2024-10-31 23:38:47,198 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:38:47,198 - INFO - Начинаем остановку приложения...
+2024-10-31 23:38:50,257 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:38:50,257 - INFO - Начинаем остановку приложения...
+2024-10-31 23:39:54,509 - INFO - База данных успешно инициализирована
+2024-10-31 23:39:54,509 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:39:54,509 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:39:54,509 - INFO - Приложение успешно запущено
+2024-10-31 23:40:01,192 - INFO - Получен webhook типа: incomingMessageReceived, данные: {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730407200, 'idMessage': '3F9947BE2B65983D648E', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'q', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}
+2024-10-31 23:40:01,192 - ERROR - Отсутствует receipt_id в данных сообщения
+2024-10-31 23:42:18,205 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:42:18,205 - INFO - Начинаем остановку приложения...
+2024-10-31 23:42:36,020 - INFO - База данных успешно инициализирована
+2024-10-31 23:42:36,020 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:42:36,020 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:42:36,020 - INFO - Приложение успешно запущено
+2024-10-31 23:42:40,415 - ERROR - Ошибка обработки вебхука: 'body'
+2024-10-31 23:44:32,118 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:44:32,118 - INFO - Начинаем остановку приложения...
+2024-10-31 23:44:38,557 - INFO - База данных успешно инициализирована
+2024-10-31 23:44:38,559 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:44:38,559 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:44:38,560 - INFO - Приложение успешно запущено
+2024-10-31 23:44:47,237 - ERROR - Ошибка обработки вебхука: 'body'
+2024-10-31 23:49:57,557 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:49:57,558 - INFO - Начинаем остановку приложения...
+2024-10-31 23:50:18,712 - INFO - База данных успешно инициализирована
+2024-10-31 23:50:18,714 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:50:18,714 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:50:18,716 - INFO - Приложение успешно запущено
+2024-10-31 23:50:25,386 - INFO - Получен webhook типа: incomingMessageReceived, данные: {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730407825, 'idMessage': '3F1D46019D74AAC703FD', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'Привет', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}
+2024-10-31 23:50:25,387 - ERROR - Ошибка обработки вебхука: 'body'
+2024-10-31 23:51:17,089 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:51:17,089 - INFO - Начинаем остановку приложения...
+2024-10-31 23:51:21,081 - INFO - База данных успешно инициализирована
+2024-10-31 23:51:21,083 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:51:21,084 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:51:21,086 - INFO - Приложение успешно запущено
+2024-10-31 23:51:51,469 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:51:51,470 - INFO - Начинаем остановку приложения...
+2024-10-31 23:52:01,941 - INFO - База данных успешно инициализирована
+2024-10-31 23:52:01,942 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:52:01,942 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:52:01,942 - INFO - Приложение успешно запущено
+2024-10-31 23:52:31,909 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:52:31,910 - INFO - Начинаем остановку приложения...
+2024-10-31 23:52:32,635 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:52:32,635 - INFO - Начинаем остановку приложения...
+2024-10-31 23:53:35,897 - INFO - База данных успешно инициализирована
+2024-10-31 23:53:35,897 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:53:35,897 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:53:35,897 - INFO - Приложение успешно запущено
+2024-10-31 23:54:16,904 - INFO - База данных успешно инициализирована
+2024-10-31 23:54:16,906 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:54:16,907 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:54:16,909 - INFO - Приложение успешно запущено
+2024-10-31 23:54:22,247 - INFO - Получен webhook типа: incomingMessageReceived, данные: {'typeWebhook': 'incomingMessageReceived', 'instanceData': {'idInstance': 7103942473, 'wid': '77075543658@c.us', 'typeInstance': 'whatsapp'}, 'timestamp': 1730408062, 'idMessage': '3F83F245F379F7B749F0', 'senderData': {'chatId': '77476758154@c.us', 'chatName': 'Марк', 'sender': '77476758154@c.us', 'senderName': 'Марк', 'senderContactName': 'Марк'}, 'messageData': {'typeMessage': 'extendedTextMessage', 'extendedTextMessageData': {'text': 'Здравствуйте', 'description': '', 'title': '', 'previewType': 'None', 'jpegThumbnail': '', 'forwardingScore': 0, 'isForwarded': False}}}
+2024-10-31 23:54:22,248 - ERROR - Ошибка обработки вебхука: 'body'
+2024-10-31 23:55:21,108 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:55:21,108 - INFO - Начинаем остановку приложения...
+2024-10-31 23:55:30,958 - INFO - База данных успешно инициализирована
+2024-10-31 23:55:30,960 - INFO - WhatsApp бот запущен с ID: 7103942473
+2024-10-31 23:55:30,960 - INFO - WhatsApp бот успешно запущен с ID: 7103942473
+2024-10-31 23:55:30,962 - INFO - Приложение успешно запущено
+2024-10-31 23:55:58,901 - INFO - Получен сигнал завершения. Начинаем корректное завершение...
+2024-10-31 23:55:58,902 - INFO - Начинаем остановку приложения...
