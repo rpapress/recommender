@@ -164,15 +164,9 @@ class WhatsAppBot:
             contact_info = await self.get_contact_info(chat_id)
             
             # Используем name или contactName, смотря что доступно
-            sender_name = ''
-            if contact_info:
-                # Приоритет отдаем полю name, если оно не пустое
-                if contact_info.get('name'):
-                    sender_name = contact_info['name']
-                # Если name пустое, используем contactName
-                elif contact_info.get('contactName'):
-                    sender_name = contact_info['contactName']
-            
+            sender_name = contact_info.get('name', '') if contact_info else ''
+            log_info(f'SENDER={sender_name}')
+
             message = Message(
                 receipt_id=data.get('receiptId'),
                 webhook_type='outgoing',
@@ -254,6 +248,7 @@ class WhatsAppBot:
             self.db.session.commit()
             log_info(f"Сохранено входящее сообщение: {message.id}")
             
+            
         except Exception as e:
             log_error(f"Ошибка сохранения входящего сообщения: {str(e)}")
             self.db.session.rollback()
@@ -261,21 +256,33 @@ class WhatsAppBot:
     async def save_outgoing_message_from_status(self, data, receipt_id):
         """Сохранение исходящего сообщения из уведомления о статусе"""
         try:
+            manager_phone_from_data = data.get('instanceData', {}).get('wid')
+            client_phone_from_data = data.get('chatId', '')
+            # Получаю информацию о контакте
+            manager_info = await self.get_contact_info(manager_phone_from_data)
+            client_info = await self.get_contact_info(client_phone_from_data)
+            
+            # Получаю имя
+            manager_name = manager_info.get('name', '') if manager_info else ''
+            client_name = client_info.get('name', '') if client_info else ''
+            log_info(f'MANAGER={manager_name}')
+            log_info(f'CLIENT={client_name}')
+    
             # Получение timestamp из запроса
             timestamp = data.get('timestamp', int(time.time()))
             # Преобразование Unix-времени в datetime
             timestamp = datetime.fromtimestamp(timestamp)
-            # Проверяем, существует ли уже сообщение с таким id_message
+            # Проверя, существует ли уже сообщение с таким id_message
             existing_message = Message.query.filter_by(id_message=data.get('idMessage')).first()
             if existing_message:
                 return  # Если сообщение уже существует, не создаем новое
 
-            # Получаем текст сообщения асинхронно
+            # Получаю текст сообщения асинхронно
             message_text = await self.get_message_text(
                 data.get('chatId'),
                 data.get('idMessage')
             )
-
+            
             message = Message(
                 receipt_id=receipt_id,
                 webhook_type='outgoing',
@@ -285,6 +292,8 @@ class WhatsAppBot:
                 instance_wid=data.get('instanceData', {}).get('wid'),
                 sender_chat_id=data.get('chatId'),
                 message_type='textMessage',
+                sender_name=client_name,
+                sender_contact_name=manager_name,
                 message_text=message_text,
                 timestamp=timestamp
             )

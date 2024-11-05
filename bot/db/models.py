@@ -6,7 +6,7 @@ class Message(db.Model):
     __tablename__ = 'messages'
     
     id = db.Column(db.Integer, primary_key=True)
-    receipt_id = db.Column(db.Integer, nullable=False, unique=True)
+    receipt_id = db.Column(db.Integer, nullable=False)
     is_from_client = db.Column(db.Boolean, nullable=False)  # True for client (incoming), False for manager (outgoing)
     webhook_type = db.Column(db.String(50), nullable=False)  # incoming or outgoing
     
