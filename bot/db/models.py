@@ -29,6 +29,8 @@ class Message(db.Model):
     message_url = db.Column(db.String(255))  # for links in the message
     mime_type = db.Column(db.String(50))  # applicable for audio messages
 
+    send_by_api = db.Column(db.Boolean, nullable=False, default=False)
+    
     instance_id = db.Column(db.String(50), nullable=False)
     instance_type = db.Column(db.String(50), nullable=False, default="whatsapp")
     id_message = db.Column(db.String(50), nullable=False, unique=True)
