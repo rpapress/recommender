@@ -12,11 +12,11 @@ class Message(db.Model):
     
     # Sender information (only applicable for incoming messages)
     # client
-    sender_name = db.Column(db.String(100))
+    sender_name = db.Column(db.String(100), nullable=True)
     sender_chat_id = db.Column(db.String(50))
 
     # manager
-    sender_contact_name = db.Column(db.String(100))
+    sender_contact_name = db.Column(db.String(100), nullable=True)
     instance_wid = db.Column(db.String(50), nullable=False) 
     
     # Message content
@@ -33,7 +33,7 @@ class Message(db.Model):
     
     instance_id = db.Column(db.String(50), nullable=False)
     instance_type = db.Column(db.String(50), nullable=False, default="whatsapp")
-    id_message = db.Column(db.String(50), nullable=False, unique=True)
+    id_message = db.Column(db.String(50), nullable=False)
     
 
     timestamp = db.Column(db.DateTime, default=datetime.now)
