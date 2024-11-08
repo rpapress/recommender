@@ -105,7 +105,7 @@ class GreenAPI:
             
             if response.status_code == 200:
                 contact_data = response.json()
-                log_info(f'Полученные данные о контакте={contact_data}')
+                # log_info(f'Полученные данные о контакте={contact_data}')
                 return contact_data
             
             log_error(f"Ошибка при получении информации о контакте: статус {response.status_code}")

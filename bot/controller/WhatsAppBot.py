@@ -38,47 +38,10 @@ class WhatsAppBot:
                 # В случае ошибки жду 5 минут и пробую снова
                 await asyncio.sleep(300)
 
-    async def save_outgoing_message(self, data):
-        """Сохранение исходящего сообщения"""
-        # Получение timestamp из запроса
-        timestamp = data.get('timestamp', int(time.time()))
-        # Преобразование Unix-времени в datetime
-        timestamp = datetime.fromtimestamp(timestamp)
-
-        try:
-            message_data = data.get('messageData', {})
-            chat_id = data.get('chatId')
-            
-            # Получаем информацию о контакте
-            contact_info = await self.green_api.get_contact_info(chat_id)
-            
-            # Используем name или contactName, смотря что доступно
-            sender_name = contact_info.get('name', '') if contact_info else ''
-            log_info(f'SENDER={sender_name}')
-
-            message = Message(
-                receipt_id=data.get('receiptId'),
-                webhook_type='outgoing',
-                id_message=data.get('idMessage'),
-                is_from_client=False,
-                instance_id=data.get('instanceData', {}).get('idInstance'),
-                instance_wid=data.get('instanceData', {}).get('wid'),
-                sender_chat_id=chat_id,
-                sender_name=sender_name,
-                message_type=message_data.get('typeMessage'),
-                message_text=message_data.get('textMessageData', {}).get('textMessage', ''),
-                timestamp=timestamp
-            )
-            
-            self.db.session.add(message)
-            self.db.session.commit()
-            log_info(f"Сохранено исходящее сообщение: {message.id}, sender_name: {sender_name}")
-            
-        except Exception as e:
-            log_error(f"Ошибка сохранения исходящего сообщения: {str(e)}")
-            self.db.session.rollback()
-            
     async def process_webhook(self, data, receipt_id):
+        
+        print(f'')
+
         """Обработка входящего вебхука"""
         try:
             webhook_type = data.get('typeWebhook')
@@ -108,8 +71,8 @@ class WhatsAppBot:
                 
                 await self.save_outgoing_message_from_status(data, receipt_id)
                 await self.update_message_status(data)
-            elif webhook_type == 'outgoingAPIMessageReceived':
-                await self.save_outgoing_message(data)
+            # elif webhook_type == 'outgoingAPIMessageReceived':
+            #     await self.save_outgoing_message(data)
                 
         except Exception as e:
             log_error(f"Ошибка обработки вебхука: {str(e)}")
@@ -167,7 +130,7 @@ class WhatsAppBot:
     async def start_response_timer(self, data, receipt_id):
         """Запуск таймера ожидания ответа менеджера"""
         sender_chat_id = data.get('senderData', {}).get('chatId')
-        log_info(f'RECEIPTID={receipt_id}')
+        log_info(f'[start_response_timer] RECEIPTID={receipt_id}')
         
         if not sender_chat_id:
             log_error(f"Не удалось получить sender_chat_id из данных: {data}")
@@ -186,18 +149,21 @@ class WhatsAppBot:
         time_elapsed = (datetime.now() - first_message_time).total_seconds()
         
         # Таймер продолжает отсчитывать от первого сообщения
-        remaining_time = max(0, 20 - time_elapsed)  # Пример с задержкой 20 секунд
+        remaining_time = max(0, 420 - time_elapsed)  # задержка в 7 минут
 
         # Запускаю новый таймер
         timer = asyncio.create_task(self.send_scripted_message(receipt_id, sender_chat_id, data, delay=remaining_time))
         response_timers[sender_chat_id] = timer
         log_info(f"Запущен таймер ответа для клиента {sender_chat_id}, оставшееся время: {remaining_time} сек.")
+        log_info(f"Текущий статус таймера для {sender_chat_id}: {response_timers.get(sender_chat_id, 'не найден')}")
+
 
     async def cancel_response_timer(self, data):
         """Отмена таймера, если менеджер ответил"""
         try:
             sender_chat_id = data.get('chatId')
             if sender_chat_id in response_timers:
+                response_timers[sender_chat_id].cancel()
                 del client_first_message_time[sender_chat_id]
                 del response_timers[sender_chat_id]
                 log_info(f"Таймер отменен для чата {sender_chat_id}")
@@ -211,18 +177,19 @@ class WhatsAppBot:
                 log_error("sender_chat_id is None, отправка сообщения невозможна")
                 return
             
-
-#todo CHECKER 
-            #! Проверяем, есть ли активные сообщения от менеджера за последние N минут
-            # recent_messages = await self.get_recent_manager_messages(sender_chat_id)
-            # if recent_messages:
-            #     log_info(f"Найдены недавние сообщения менеджера для {sender_chat_id}, отмена автоответа")
-            #     return
-#todo CHECKER 
-
-               
             await asyncio.sleep(delay)
-                                
+
+            # Получаем информацию о контакте       
+            contact_info = await self.green_api.get_contact_info(sender_chat_id)
+            client_name = contact_info.get('name', '') if contact_info else ''
+            if not client_name:
+                client_name = "Клиент"
+            
+            log_info(f'CLIENTNAMEFROMSCRIPTER={client_name}')
+
+            timestamp = data.get('timestamp', int(time.time()))
+            # Преобразование Unix-времени в datetime
+            timestamp = datetime.fromtimestamp(timestamp)
             
             # Повторная проверка перед отправкой
             if sender_chat_id not in response_timers:
@@ -235,8 +202,8 @@ class WhatsAppBot:
             if not '@' in chat_id:
                 chat_id = f"{sender_chat_id}@c.us"
                 
-            message = "Извините за задержку, менеджер скоро ответит."
-
+            scripted_message = "Извините за задержку, менеджер скоро ответит."
+            
             message = Message(
                 receipt_id=receipt_id, 
                 webhook_type='outgoing STATIC TEXT',
@@ -245,61 +212,38 @@ class WhatsAppBot:
                 is_from_client=False,
                 instance_id=data.get('instanceData', {}).get('idInstance'),
                 instance_wid=data.get('instanceData', {}).get('wid'),
+                # message_type=data.get('typeMessage'),
                 sender_chat_id=sender_chat_id,
-                # sender_name=sender_name,
-                # message_type=message_data.get('typeMessage'),
-                # message_text=message_data.get('textMessageData', {}).get('textMessage', ''),
-                # timestamp=timestamp
+                sender_name=f'Клиент: {client_name}',
+                message_text=scripted_message,  # Добавляю текст сообщения
+                timestamp=timestamp
             )
-            # # !
-            # message = Message(
-            #     receipt_id=data.get('receiptId'),
-            #     webhook_type='outgoing',
-            #     id_message=data.get('idMessage'),
-            #     is_from_client=False,
-            #     instance_id=data.get('instanceData', {}).get('idInstance'),
-            #     instance_wid=data.get('instanceData', {}).get('wid'),
-            #     sender_chat_id=sender_chat_id,
-            #     sender_name=sender_name,
-            #     message_type=message_data.get('typeMessage'),
-            #     message_text=message_data.get('textMessageData', {}).get('textMessage', ''),
-            #     timestamp=timestamp
-            # )
-            # #!
+
             self.db.session.add(message)
             self.db.session.commit()
             
-            await self.green_api.send_message(chat_id, 'Статичный текст')
+            await self.green_api.send_message(chat_id, scripted_message)
             
         except Exception as e:
             log_error(f"Ошибка при отправке заскриптованного сообщения: {str(e)}")
-#todo CHECKER  
-    # async def get_recent_manager_messages(self, chat_id, seconds=1):
-    #     """Проверка наличия недавних сообщений от менеджера"""
-    #     try:
-    #         current_time = datetime.now()
-    #         time_threshold = current_time - timedelta(seconds=seconds)
-            
-    #         # Получаем сообщения от менеджера за последние N минут
-    #         # Добавляем условие send_by_api == False чтобы исключить автоматические сообщения
-    #         recent_messages = Message.query.filter(
-    #             Message.sender_chat_id == chat_id,
-    #             Message.is_from_client == False,
-    #             Message.send_by_api == False,
-    #             Message.timestamp >= time_threshold
-    #         ).all()
-            
-    #         return len(recent_messages) > 0
-    #     except Exception as e:
-    #         log_error(f"Ошибка при проверке недавних сообщений: {str(e)}")
-    #         return False
-#todo CHECKER 
+        
     async def save_incoming_message(self, data, receipt_id):
         """Сохранение входящего сообщения"""
         try:
             manager_phone_from_data = data.get('instanceData', {}).get('wid')
             manager_info = await self.green_api.get_contact_info(manager_phone_from_data)
             manager_name = manager_info.get('name', '') if manager_info else ''
+            client_phone_from_data = data.get('chatId', '')
+            client_info = await self.green_api.get_contact_info(client_phone_from_data)
+
+            client_name = client_info.get('name', '') if client_info else ''
+            if not client_name:
+                client_name = "Клиент"
+
+            # Если имя пустое, присвою значение "Менеджер"
+            if not manager_name:
+                manager_name = "Менеджер"
+                
             log_info(f'INSTANCEDATA={manager_name}')
 
             message_data = data.get('messageData', {})
@@ -323,8 +267,9 @@ class WhatsAppBot:
                 instance_id=self.id_instance,
                 instance_wid=data.get('instanceData', {}).get('wid', ''),
                 sender_chat_id=sender_data.get('chatId'),
-                sender_name=sender_data.get('senderName'),
-                sender_contact_name=manager_name,
+                sender_name=f'Клиент: {client_name}',
+                #! Сохрание имени менеджера в бд может быть пустым, это нормально 
+                sender_contact_name=f'Менеджер: {manager_name}',
                 message_type=message_data.get('typeMessage'),
                 message_text=message_text,
                 message_url=message_data.get('extendedTextMessageData', {}).get('jpegThumbnail'),
@@ -352,7 +297,13 @@ class WhatsAppBot:
             
             # Получаю имя
             manager_name = manager_info.get('name', '') if manager_info else ''
+            if not manager_name:
+                manager_name = "Менеджер"
+                
             client_name = client_info.get('name', '') if client_info else ''
+            if not client_name:
+                client_name = "Клиент"
+
             log_info(f'MANAGER={manager_name}')
             log_info(f'CLIENT={client_name}')
     
@@ -380,8 +331,8 @@ class WhatsAppBot:
                 instance_wid=data.get('instanceData', {}).get('wid'),
                 sender_chat_id=data.get('chatId'),
                 message_type='textMessage',
-                sender_name=client_name,
-                sender_contact_name=manager_name,
+                sender_name=f'Клиент:{client_name}',
+                sender_contact_name=f'Менеджер:{manager_name}',
                 message_text=message_text,
                 timestamp=timestamp,
                 send_by_api=send_by_api
