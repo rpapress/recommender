@@ -64,7 +64,7 @@ class Application:
         except Exception as e:
             log_error(f"Ошибка запуска WhatsApp бота: {e}")
             self.shutdown()
-            
+    
     def shutdown(self):
         """Корректное завершение работы приложения"""
         self.running = False

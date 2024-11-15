@@ -1,80 +1,78 @@
 from typing import List, Dict, Tuple
 from statistics import median
 from collections import defaultdict
-
 from bot.db.models import Message
 
 
-from typing import List, Dict, Tuple
-from datetime import datetime
-
-from typing import List, Dict, Tuple
-from datetime import datetime
-
-
-from typing import List, Dict, Tuple
-from datetime import datetime
-
 class Analytics:
     @staticmethod
-    def analyze_response_times(messages: List[Message]) -> Dict[str, List[Dict[str, float]]]:
+    def analyze_response_times(messages: List[Message]) -> Dict:
         """
-        Расчет времени ответа менеджера для каждого полученного и отправленного сообщения.
-        Время ответа представляется в формате 'минуты:секунды'.
+        Расчет времени ответа менеджера включая общее среднее время ответа.
+        Группировка по менеджерам и их клиентам.
         """
-        conversations: Dict[Tuple[str, str], List[Message]] = {}
-
+        # Создаем структуру для хранения диалогов по менеджерам и клиентам
+        conversations: Dict[str, Dict[str, List[Message]]] = defaultdict(lambda: defaultdict(list))
+        
         for msg in messages:
             if msg.send_by_api:
                 continue
-
-            conversation_key = (msg.sender_chat_id, msg.instance_wid)
-
-            if conversation_key not in conversations:
-                conversations[conversation_key] = []
-            conversations[conversation_key].append(msg)
+                
+            # Группируем сначала по менеджеру, потом по клиенту
+            manager_id = msg.instance_wid
+            client_id = msg.sender_chat_id
+            conversations[manager_id][client_id].append(msg)
 
         response_analytics = {}
+        all_response_times = []
 
-        for (client_id, manager_id), msgs in conversations.items():
-            sorted_msgs = sorted(msgs, key=lambda x: x.timestamp)
+        # Обрабатываем сообщения для каждого менеджера
+        for manager_id, manager_conversations in conversations.items():
+            manager_analytics = {}
+            
+            # Обрабатываем диалоги с каждым клиентом
+            for client_id, msgs in manager_conversations.items():
+                sorted_msgs = sorted(msgs, key=lambda x: x.timestamp)
+                message_response_times = []
+                last_client_msg = None
 
-            # Храним данные для каждого сообщения
-            message_response_times = []
+                for msg in sorted_msgs:
+                    if msg.is_from_client:
+                        last_client_msg = msg
+                    else:
+                        if last_client_msg:
+                            response_time = (msg.timestamp - last_client_msg.timestamp).total_seconds()
+                            minutes = response_time // 60
+                            seconds = response_time % 60
 
-            last_client_msg = None
+                            message_data = {
+                                # 'message_id': msg.id,
+                                # 'client_sent_at': last_client_msg.timestamp.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+                                # 'manager_sent_at': msg.timestamp.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+                                'formatted_response_time': f"{int(minutes)}m {int(seconds)}s",
+                                # 'response_time_in_seconds': response_time,
+                                # 'client_contact_id': last_client_msg.sender_chat_id,
+                                # 'manager_contact_id': msg.instance_wid,
+                                'client_message': last_client_msg.message_text,
+                                'manager_response': msg.message_text,
+                                # 'sender_type_client': 'client',
+                                # 'sender_type_manager': 'manager'
+                            }
 
-            for msg in sorted_msgs:
-                if msg.is_from_client:
-                    last_client_msg = msg
-                else:
-                    if last_client_msg:
-                        # Расчет времени ответа менеджера на сообщение клиента
-                        response_time = (msg.timestamp - last_client_msg.timestamp).total_seconds()
+                            message_response_times.append(message_data)
+                            all_response_times.append(response_time)
+                            last_client_msg = None
 
-                        # Преобразуем время ответа в минуты и секунды
-                        minutes = response_time // 60
-                        seconds = response_time % 60
+                manager_analytics[client_id] = message_response_times
 
-                        message_data = {
-                            'message_id': msg.id,
-                            'client_message_timestamp': last_client_msg.timestamp.strftime('%a, %d %b %Y %H:%M:%S GMT'),
-                            'manager_message_timestamp': msg.timestamp.strftime('%a, %d %b %Y %H:%M:%S GMT'),
-                            'response_time': f"{int(minutes)}m {int(seconds)}s",
-                            'client_phone': last_client_msg.sender_chat_id,  # Номер телефона клиента
-                            'manager_phone': msg.instance_wid,  # Номер телефона менеджера
-                            'client_message_text': last_client_msg.message_text,  # Текст сообщения клиента
-                            'manager_message_text': msg.message_text,  # Текст сообщения менеджера
-                            'client_sender': 'client',  # Роль отправителя (клиент)
-                            'manager_sender': 'manager'  # Роль отправителя (менеджер)
-                        }
+            response_analytics[manager_id] = manager_analytics
 
-                        # Сохраняем время ответа для этого сообщения
-                        message_response_times.append(message_data)
-
-                        # После обработки ответа менеджера сбрасываем информацию о клиентском сообщении
-                        last_client_msg = None
-
-            response_analytics[manager_id] = message_response_times
+        # Добавляем общую статистику
+        if all_response_times:
+            avg_response_time = sum(all_response_times) / len(all_response_times)
+            avg_minutes = int(avg_response_time // 60)
+            avg_seconds = int(avg_response_time % 60)
+            response_analytics['average_response_time'] = f"{avg_minutes}m {avg_seconds}s"
+            response_analytics['total_messages'] = len(all_response_times)
 
         return response_analytics

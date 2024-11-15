@@ -39,6 +39,8 @@ class Message(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.now)
     create_at = db.Column(db.DateTime, default=datetime.now)
 
+    recommended_response = db.relationship('RecommendedResponse', back_populates='message', uselist=False)
+
     def __repr__(self):
         return f"<Message id={self.id} type={self.webhook_type} receipt_id={self.receipt_id}>"
 
@@ -57,28 +59,29 @@ class OutgoingMessageStatus(db.Model):
 
     def __repr__(self):
         return f"<OutgoingMessageStatus id={self.id} message_id={self.message_id} status={self.status}>"
+    
 
-class BotCounter(db.Model):
-    __tablename__ = 'bot_counters'
+class ChatContext(db.Model):
+    __tablename__ = 'chat_contexts'
     
     id = db.Column(db.Integer, primary_key=True)
-    manager_chat_id = db.Column(db.String(50), nullable=False, unique=True)
-    bot_reply_count = db.Column(db.Integer, default=0)
+    chat_id = db.Column(db.String(50), nullable=False)
+    messages = db.Column(db.JSON, nullable=False, default=list)
+    last_update = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
     
     def __repr__(self):
-        return f"<BotCounter manager_chat_id={self.manager_chat_id} bot_reply_count={self.bot_reply_count}>"
-
-
-# # -----------------------------------------------------------------------------------------------
-# # Save context for ChatGPT
-# class ChatHistory(db.Model):
-#     __tablename__ = 'chat_history'
+        return f"<ChatContext chat_id={self.chat_id}>"
     
-#     id = db.Column(db.Integer, primary_key=True)
-#     phone_number = db.Column(db.String(15), db.ForeignKey('clients.phone_number'), nullable=False)
-#     user_message = db.Column(db.Text, nullable=False)
-#     gpt_response = db.Column(db.Text, nullable=False)
-#     timestamp = db.Column(db.DateTime, default=datetime.now)
 
-#     def __repr__(self):
-#         return f'<ChatHistory {self.id} - {self.phone_number}>'
+
+class RecommendedResponse(db.Model):
+    __tablename__ = 'recommended_responses'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    message_id = db.Column(db.Integer, db.ForeignKey('messages.id'), nullable=False)
+    client_phone_number = db.Column(db.String(50), nullable=False)  # Номер телефона клиента
+    response_text = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    
+    # Связь с сообщением
+    message = db.relationship('Message', back_populates='recommended_response')

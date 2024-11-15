@@ -1,19 +1,21 @@
 import asyncio
 import aiohttp
 import time
+import json
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor
 from bot.db.models import (
     Message,
-    OutgoingMessageStatus
+    OutgoingMessageStatus, 
+    ChatContext,
+    RecommendedResponse
 )
+from bot.db.connect import db
+
 from bot.settings.logger import log_info, log_error
 from bot.controller.GreenAPI import GreenAPI
+from bot.stack.traveler import interact_with_chatgpt_async
 
-
-response_timers = {}
-client_first_message_time = {}
-# await self.green_api.delete_notification(receipt_id)
 
 class WhatsAppBot:
     def __init__(self, app, id_instance, api_token_instance, db):
@@ -25,6 +27,10 @@ class WhatsAppBot:
         self.base_url = f"https://api.green-api.com/waInstance{self.id_instance}"
         self.running = True
         self.executor = ThreadPoolExecutor(max_workers=5)
+        #? написать для этой переменной бекенд вместе с установленной компанией, 
+        #? 1: ProfiDecor, ai: False
+        #? 2: AkBaryus, ai: True
+        self.ai_assistant = True
 
     async def schedule_reboot(self):
         """Планировщик перезапуска аккаунта каждые 8 часов"""
@@ -38,10 +44,36 @@ class WhatsAppBot:
                 # В случае ошибки жду 5 минут и пробую снова
                 await asyncio.sleep(300)
 
-    async def process_webhook(self, data, receipt_id):
-        
-        print(f'')
+    async def get_or_create_context(self, chat_id):
+        """Получение или создание контекста чата"""
+        context = ChatContext.query.filter_by(chat_id=chat_id).first()
+        if not context:
+            context = ChatContext(chat_id=chat_id, messages=[])
+            self.db.session.add(context)
+            self.db.session.commit()
+        return context
 
+    async def update_context(self, chat_id, new_messages):
+        """Обновление контекста чата"""
+        context = await self.get_or_create_context(chat_id)
+        context.messages = context.messages + new_messages
+        
+        # Ограничиваем количество сохраняемых сообщений для экономии токенов
+        if len(context.messages) > 10:  # Храним последние 10 сообщений
+            context.messages = context.messages[-10:]
+            
+        self.db.session.commit()
+
+    async def save_recommended_response(self, message_id, client_phone_number, response_text):
+        recommended_response = RecommendedResponse(
+            message_id=message_id,
+            client_phone_number=client_phone_number,
+            response_text=response_text
+        )
+        self.db.session.add(recommended_response)
+        self.db.session.commit()
+
+    async def process_webhook(self, data, receipt_id):
         """Обработка входящего вебхука"""
         try:
             webhook_type = data.get('typeWebhook')
@@ -54,32 +86,101 @@ class WhatsAppBot:
                 # Проверяем, является ли отправитель менеджером
                 client = data.get('senderData', {}).get('sender')
                 manager = data.get('instanceData', {}).get('wid')
-                if client == manager:
-                    # Если сообщение от менеджера, отменяем таймер для этого чата
-                    chat_id = data.get('senderData', {}).get('chatId')
-                    await self.cancel_response_timer({'chatId': chat_id})
-                    log_info(f"Таймер отменен из-за ответа менеджера для чата {chat_id}")
-                else:
-                    # Если сообщение от клиента
+                if client != manager:  # Если сообщение от клиента
                     await self.save_incoming_message(data, receipt_id)
-                    await self.start_response_timer(data, receipt_id)
+                    
+                    message_data = data.get('messageData', {})
+                    message_text = (
+                        message_data.get('textMessageData', {}).get('textMessage', '') or 
+                        message_data.get('extendedTextMessageData', {}).get('text', '')
+                    )
+                    
+                    message_text = json.loads(f'"{message_text}"') if message_text else ""
+
+                    chat_id = data.get('senderData', {}).get('chatId')
+                    
+                    message = Message(
+                        receipt_id=receipt_id,
+                        is_from_client=True,
+                        webhook_type=webhook_type,
+                        sender_name=data.get('senderData', {}).get('senderName', ''),
+                        sender_chat_id=chat_id,
+                        instance_wid=manager,
+                        message_type=message_data.get('typeMessage', 'text'),
+                        message_text=message_text,
+                        id_message=data.get('idMessage', ''),
+                        instance_id=self.id_instance
+                    )
+
+                    self.db.session.add(message)
+                    self.db.session.commit()
+                    message_id = message.id
+                    
+                    try:
+                        if self.ai_assistant:  # Если включен режим ИИ-ассистента
+                            # Получаем контекст чата
+                            context = await self.get_or_create_context(chat_id)
+                            
+                            # Генерация ответа с учетом контекста
+                            ai_response = await interact_with_chatgpt_async(
+                                message_text,
+                                context.messages
+                            )
+                            # Обновляем контекст
+                            new_messages = [
+                                {"role": "user", "content": message_text},
+                                {"role": "assistant", "content": ai_response}
+                            ]
+                            await self.update_context(chat_id, new_messages)
+                            
+                            # Отправляем ответ
+                            await self.green_api.send_message(
+                                chat_id=chat_id,
+                                message=ai_response
+                            )
+                            log_info(f"Отправлен ответ ИИ в чат {chat_id}")
+                        
+                        else:  # Если ИИ-ассистент выключен
+                            try:
+                                # Генерация рекомендованного ответа с помощью ChatGPT
+                                client_info = await self.green_api.get_contact_info(chat_id)
+                                client_name = client_info.get('name', '') if client_info else ''
+                                client_phone_number = data.get('senderData', {}).get('chatId', '')
+                                if not client_name:
+                                    client_name = "Клиент"
+
+                                recommended_response = '[Рекомендованный ответ]'
+                                # recommended_response = await interact_with_chatgpt_async(message_text)
+                                # 1. сохраняю рекомендованный ответ
+                                await self.save_recommended_response(message_id, client_phone_number, recommended_response)
+                                # 2. #! Отправка рекомендованного ответа себе (менеджеру)
+                                # await self.green_api.send_message(
+                                #     chat_id=manager,
+                                #     message=f'➡ {recommended_response}'
+                                #     message=f'❇ Рекомендуемый ответ для: *{client_name}*\nНа сообщение: {message_text}\n➡ {recommended_response}'
+                                # )
+                                # log_info(f"Отправлен рекомендованный ответ менеджеру: {recommended_response}")
+                            
+                            except Exception as e:
+                                log_error(f"Ошибка при генерации/отправке рекомендованного ответа: {str(e)}")
+                    
+                    except Exception as e:
+                        log_error(f"Ошибка при генерации/отправке ответа: {str(e)}")
+                            
 
             elif webhook_type == 'outgoingMessageStatus':
-                # Отменяем таймер при отправке сообщения менеджером
                 chat_id = data.get('chatId')
-                await self.cancel_response_timer({'chatId': chat_id})
-                
                 await self.save_outgoing_message_from_status(data, receipt_id)
                 await self.update_message_status(data)
+
+            #! Такого вебхука нет
             # elif webhook_type == 'outgoingAPIMessageReceived':
             #     await self.save_outgoing_message(data)
                 
         except Exception as e:
             log_error(f"Ошибка обработки вебхука: {str(e)}")
     
-
-        # --------------------------------------------------------------------------------------------------
-    
+    # --------------------------------------------------------------------------------------------------
     #? Получение уведомлений реализованно здесь из-за того что функция обработки вебхука находится здесь
     #? а я не хочу прыгать постоянно в файл GreenApi
     async def receive_notification(self):
@@ -126,107 +227,7 @@ class WhatsAppBot:
 
         log_error("Все попытки получения уведомления исчерпаны")
         return False
-    
-    async def start_response_timer(self, data, receipt_id):
-        """Запуск таймера ожидания ответа менеджера"""
-        sender_chat_id = data.get('senderData', {}).get('chatId')
-        log_info(f'[start_response_timer] RECEIPTID={receipt_id}')
-        
-        if not sender_chat_id:
-            log_error(f"Не удалось получить sender_chat_id из данных: {data}")
-            return
 
-        # Если нет времени первого сообщения для клиента, сохраняю его
-        if sender_chat_id not in client_first_message_time:
-            client_first_message_time[sender_chat_id] = datetime.now()
-
-        # Если уже есть активный таймер для этого клиента, отменяю его
-        if sender_chat_id in response_timers:
-            response_timers[sender_chat_id].cancel()
-
-        # Рассчитываю задержку с учетом первого сообщения
-        first_message_time = client_first_message_time[sender_chat_id]
-        time_elapsed = (datetime.now() - first_message_time).total_seconds()
-        
-        # Таймер продолжает отсчитывать от первого сообщения
-        remaining_time = max(0, 420 - time_elapsed)  # задержка в 7 минут
-
-        # Запускаю новый таймер
-        timer = asyncio.create_task(self.send_scripted_message(receipt_id, sender_chat_id, data, delay=remaining_time))
-        response_timers[sender_chat_id] = timer
-        log_info(f"Запущен таймер ответа для клиента {sender_chat_id}, оставшееся время: {remaining_time} сек.")
-        log_info(f"Текущий статус таймера для {sender_chat_id}: {response_timers.get(sender_chat_id, 'не найден')}")
-
-
-    async def cancel_response_timer(self, data):
-        """Отмена таймера, если менеджер ответил"""
-        try:
-            sender_chat_id = data.get('chatId')
-            if sender_chat_id in response_timers:
-                response_timers[sender_chat_id].cancel()
-                del client_first_message_time[sender_chat_id]
-                del response_timers[sender_chat_id]
-                log_info(f"Таймер отменен для чата {sender_chat_id}")
-        except Exception as e:
-            log_error(f"Ошибка при отмене таймера: {str(e)}")
-
-    async def send_scripted_message(self, receipt_id, sender_chat_id, data, delay):
-        """Отправка заскриптованного сообщения после тайм-аута"""
-        try:
-            if not sender_chat_id:
-                log_error("sender_chat_id is None, отправка сообщения невозможна")
-                return
-            
-            await asyncio.sleep(delay)
-
-            # Получаем информацию о контакте       
-            contact_info = await self.green_api.get_contact_info(sender_chat_id)
-            client_name = contact_info.get('name', '') if contact_info else ''
-            if not client_name:
-                client_name = "Клиент"
-            
-            log_info(f'CLIENTNAMEFROMSCRIPTER={client_name}')
-
-            timestamp = data.get('timestamp', int(time.time()))
-            # Преобразование Unix-времени в datetime
-            timestamp = datetime.fromtimestamp(timestamp)
-            
-            # Повторная проверка перед отправкой
-            if sender_chat_id not in response_timers:
-                log_info(f"Таймер был отменен для {sender_chat_id}, отмена отправки сообщения")
-                return
-                
-            log_info(f"Отправка заскриптованного сообщения клиенту {sender_chat_id}, так как ответа менеджера не поступило")
-            
-            chat_id = f"{sender_chat_id}"
-            if not '@' in chat_id:
-                chat_id = f"{sender_chat_id}@c.us"
-                
-            scripted_message = "Извините за задержку, менеджер скоро ответит."
-            
-            message = Message(
-                receipt_id=receipt_id, 
-                webhook_type='outgoing STATIC TEXT',
-                sender_contact_name='static response',
-                id_message=data.get('idMessage'),
-                is_from_client=False,
-                instance_id=data.get('instanceData', {}).get('idInstance'),
-                instance_wid=data.get('instanceData', {}).get('wid'),
-                # message_type=data.get('typeMessage'),
-                sender_chat_id=sender_chat_id,
-                sender_name=f'Клиент: {client_name}',
-                message_text=scripted_message,  # Добавляю текст сообщения
-                timestamp=timestamp
-            )
-
-            self.db.session.add(message)
-            self.db.session.commit()
-            
-            await self.green_api.send_message(chat_id, scripted_message)
-            
-        except Exception as e:
-            log_error(f"Ошибка при отправке заскриптованного сообщения: {str(e)}")
-        
     async def save_incoming_message(self, data, receipt_id):
         """Сохранение входящего сообщения"""
         try:
@@ -331,8 +332,8 @@ class WhatsAppBot:
                 instance_wid=data.get('instanceData', {}).get('wid'),
                 sender_chat_id=data.get('chatId'),
                 message_type='textMessage',
-                sender_name=f'Клиент:{client_name}',
-                sender_contact_name=f'Менеджер:{manager_name}',
+                sender_name=f'Клиент: {client_name}',
+                sender_contact_name=f'Менеджер: {manager_name}',
                 message_text=message_text,
                 timestamp=timestamp,
                 send_by_api=send_by_api
